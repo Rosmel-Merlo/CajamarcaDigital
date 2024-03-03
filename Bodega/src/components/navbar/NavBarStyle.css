@@ -1,0 +1,7 @@
+.nav-contendor{
+    height: 48px;
+    width: 100vw;
+    background-color: #29873F;
+    display: flex;
+    justify-content: space-between
+}
