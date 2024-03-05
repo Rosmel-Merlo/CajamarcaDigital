@@ -1,12 +1,10 @@
-import { useState } from 'react'
-
 import './App.css'
-import NavBar from './components/navbar/NavBar'
+import { ContentRouter } from './routes/ContentRouter'
 
 function App() {
 
   return (<>
-    <NavBar />
+    <ContentRouter />
   </>
   )
 }

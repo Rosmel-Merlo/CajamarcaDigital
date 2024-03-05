@@ -1,7 +1,14 @@
-.nav-contendor{
-    height: 48px;
-    width: 100vw;
-    background-color: #29873F;
-    display: flex;
-    justify-content: space-between
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #125812;
+}
+.nav-leftItems {
+  display: flex;
+}
+.contendor {
+  display: flex;
+  align-items: center;
+  color: white;
 }
