@@ -1,0 +1,16 @@
+.card {
+  padding: 0px;
+  height: 100%;
+}
+.cards {
+  max-width: 100%;
+  margin: 0 auto;
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 600px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
