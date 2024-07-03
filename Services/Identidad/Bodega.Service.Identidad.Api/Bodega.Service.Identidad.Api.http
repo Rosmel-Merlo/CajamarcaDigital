@@ -1,6 +1,0 @@
-@Bodega.Service.Identidad.Api_HostAddress = http://localhost:5105
-
-GET {{Bodega.Service.Identidad.Api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
