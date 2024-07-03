@@ -1,1 +1,85 @@
 
+# Compiled source
+*.dll
+*.exe
+*.dll.config
+*.exe.config
+*.pdb
+*.cache
+
+# Depuración
+*.vshost.*
+
+# Visual Studio
+.vs/
+.vscode/
+*.user
+*.suo
+*.sln.docstates
+.vscode/
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+
+# Rider
+.idea/
+.idea_modules/
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+
+# Microsoft Azure Build Output
+csx/
+*.build.csdef
+
+# Windows image file caches
+*.imgcache/
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# StyleCop
+StyleCopReport.xml
+
+# MSTest test results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# NUnit
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+
+# Build directories
+out/
+bin/
+obj/
+test/
+temp/
+
+# Logs
+*.log
+
+# Publish
+.publish/
