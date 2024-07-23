@@ -91,3 +91,5 @@ temp/
 
 # Cache
 .cache
+
+.fake
