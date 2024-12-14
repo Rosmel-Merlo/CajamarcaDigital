@@ -1,5 +1,6 @@
 
 using Bodega.Application.Command.Seccion.Crear;
+using Bodega.Application.Queries.Secciones.ListarSecciones;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,9 +15,9 @@ namespace Bodega.Api.Controller
             _mediator = mediator;
         }
         [HttpGet("ListarSecciones")]
-        public async Task<ActionResult<string>> ListarSecciones([FromBody] CrearSeccionCommand command)
+        public async Task<ActionResult<string>> ListarSecciones([FromQuery] ListarSeccionesQuery query)
         {
-            var response = await _mediator.Send(command);
+            var response = await _mediator.Send(query);
             return Ok(response);
         }
         [HttpPost("CrearSeccion")]

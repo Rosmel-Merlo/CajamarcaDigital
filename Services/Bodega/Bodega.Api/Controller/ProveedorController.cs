@@ -13,17 +13,18 @@ namespace Bodega.Api.Controller
         {
             _mediator = mediator;
         }
-        [HttpPost("CrearProveedor")]
-        public async Task<ActionResult<string>> CrearProveedor([FromBody] CrearProveedorCommand command)
-        {
-            var response = await _mediator.Send(command);
-            return Ok(response);
-        }
         [HttpGet("ListarProveedores")]
         public async Task<ActionResult<string>> ListarProveedores([FromQuery] ListarProveedoresQuery query)
         {
             var response = await _mediator.Send(query);
             return Ok(response);
         }
+        [HttpPost("CrearProveedor")]
+        public async Task<ActionResult<string>> CrearProveedor([FromBody] CrearProveedorCommand command)
+        {
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
+
     }
 }
