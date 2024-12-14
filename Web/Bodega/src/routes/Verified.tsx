@@ -8,19 +8,45 @@ export const Verified = () => {
   const { Icon } = useIconsCatalogo(100);
   const linkGroups: TreeMenu[] = [
     {
-      name: "Personas",
+      name: "Productos",
       links: [
         {
           key: "1",
-          name: "Listado Clientes",
-          url: "listado",
+          name: "Listado Productos",
+          url: "productos",
           icon: "DocumentOnePageAdd20Regular",
         },
-
+      ],
+    },
+    {
+      name: "Secciones",
+      links: [
         {
-          key: "2",
-          name: "Reportes",
-          url: "reportes",
+          key: "1",
+          name: "Listado Secciones",
+          url: "secciones",
+          icon: "DocumentOnePageAdd20Regular",
+        },
+      ],
+    },
+    {
+      name: "Categorias",
+      links: [
+        {
+          key: "1",
+          name: "Listado Categorias",
+          url: "categorias",
+          icon: "DocumentOnePageAdd20Regular",
+        },
+      ],
+    },
+    {
+      name: "Proveedores",
+      links: [
+        {
+          key: "1",
+          name: "Listado Proveedores",
+          url: "proveedores",
           icon: "DocumentOnePageAdd20Regular",
         },
       ],
@@ -52,9 +78,7 @@ export const Verified = () => {
 
       <div style={{ display: "flex" }}>
         <SiderBar width={350} isOpen={true} linkNavGroups={linkGroups} />
-        <div
-          style={{ width: "100%", padding: "10px" }}
-        >
+        <div style={{ width: "100%", padding: "10px" }}>
           <Outlet />
         </div>
       </div>
