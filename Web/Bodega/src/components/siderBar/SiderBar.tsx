@@ -60,17 +60,17 @@ export const SiderBar = (props: ISiderBar) => {
           isOpenIcons
             ? {
                 width: `${props.width}px`,
-                height: "calc(100vh-48px",
+                height: "calc(100vh - 48px",
                 transition: "width 0.5s ease",
               }
             : {
                 width: "48px",
-                height: "calc(100vh-48px",
+                height: "calc(100vh - 48px",
                 transition: "width 0.5s ease",
               }
         }
       >
-        <div className="cuerpo">
+        <div className="siderbarDrawe">
           {isOpenIcons === true ? (
             <div className="siderbar-general">
               <DrawerHeader style={{ padding: "0px 25px" }}>
@@ -92,7 +92,7 @@ export const SiderBar = (props: ISiderBar) => {
                 style={{
                   padding: "0px",
                   border: "0px",
-                  backgroundColor: "rgb(243, 242, 241)",
+                  
                 }}
               >
                 <Accordion
@@ -159,8 +159,7 @@ export const SiderBar = (props: ISiderBar) => {
 
               <DrawerBody
                 style={{
-                  padding: "0px",
-                  backgroundColor: "rgb(243, 242, 241)",
+                  padding: "3px",
                 }}
               >
                 <Accordion

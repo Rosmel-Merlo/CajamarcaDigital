@@ -12,12 +12,11 @@ import {
   TableRow,
 } from "@fluentui/react-components";
 import { useStyles } from "../../styles/LabelFontSyles";
-import { ButtonsGroupTabla } from "../buttonsGroup/ButtonsGroupTabla";
 import { IButtonGroup } from "../../interfaces/IButtonsGroup/IButtonGroup";
 import { ChangeEvent, Fragment } from "react";
 
 interface ITableComponent {
-  isSearch?: boolean
+  isSearch?: boolean;
   column: IColumn[];
   data: any[];
   isLoading: true | false;
@@ -34,48 +33,40 @@ export const TableComponent = (props: ITableComponent) => {
 
   return (
     <>
-      <div>
-        <ButtonsGroupTabla
-          isSearch={props.isSearch}
-          leftButtons={props.leftButtons}
-          rightButton={props.rightButton}
-          onChangeSearch={props.onChangeSearch}
-        />
-      </div>
-      <div>
-        <Table size={"small"} noNativeElements={true}>
-          <TableHeader>
-            <TableRow>
-              {props.column.map((column: IColumn) => (
-                <TableHeaderCell
-                  as="div"
-                  key={column.key}
-                  style={{
-                    minWidth: column.minWidth,
-                    maxWidth: column.maxWidth ?? "auto",
-                    padding: "0px 8px",
-                  }}
+      <Table size={"small"} aria-label="asdfasdfs" noNativeElements={true}>
+        <TableHeader>
+          <TableRow>
+            {props.column.map((column: IColumn) => (
+              <TableHeaderCell
+                as="div"
+                key={column.key}
+                style={{
+                  minWidth: column.minWidth,
+                  maxWidth: column.maxWidth ?? "auto",
+                  padding: "0px 8px",
+                }}
+              >
+                <Label
+                  className={styles.textCabecera}
+                  weight="semibold"
+                  size="medium"
                 >
-                  <Label
-                    className={styles.textCabecera}
-                    weight="semibold"
-                    size="medium"
-                  >
-                    {column.name}
-                  </Label>
-                </TableHeaderCell>
-              ))}
-            </TableRow>
-          </TableHeader>
+                  {column.name}
+                </Label>
+              </TableHeaderCell>
+            ))}
+          </TableRow>
+        </TableHeader>
 
-          <TableBody
-            style={{
-              minHeight: "100px",
-              maxHeight: "72vh",
-              overflowY: "scroll",
-            }}
-          >
-            {!props.isLoading ? (<>
+        <TableBody
+          style={{
+            minHeight: "100px",
+            maxHeight: "72vh",
+            overflowY: "scroll",
+          }}
+        >
+          {!props.isLoading ? (
+            <>
               {props.data?.map((item: any, indexItem: number) => (
                 <TableRow appearance="none" key={indexItem}>
                   {props.column.map((column: IColumn) => (
@@ -111,29 +102,26 @@ export const TableComponent = (props: ITableComponent) => {
                     </Fragment>
                   ))}
                 </TableRow>
-              ))
-              }
+              ))}
             </>
-
-            ) : (
-              <div
-                style={{
-                  height: "100px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Spinner
-                  appearance="primary"
-                  size="extra-small"
-                  label="Obteniendo Información"
-                />
-              </div>
-            )}
-          </TableBody>
-        </Table>
-      </div>
+          ) : (
+            <div
+              style={{
+                height: "100px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Spinner
+                appearance="primary"
+                size="extra-small"
+                label="Obteniendo Información"
+              />
+            </div>
+          )}
+        </TableBody>
+      </Table>
     </>
   );
 };
