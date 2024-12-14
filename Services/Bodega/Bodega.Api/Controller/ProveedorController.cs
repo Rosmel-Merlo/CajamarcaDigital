@@ -14,7 +14,7 @@ namespace Bodega.Api.Controller
             _mediator = mediator;
         }
         [HttpGet("ListarProveedores")]
-        public async Task<ActionResult<string>> ListarProveedores([FromQuery] ListarProveedoresQuery query)
+        public async Task<ActionResult<List<ListarProveedoresDTO>>> ListarProveedores([FromQuery] ListarProveedoresQuery query)
         {
             var response = await _mediator.Send(query);
             return Ok(response);
