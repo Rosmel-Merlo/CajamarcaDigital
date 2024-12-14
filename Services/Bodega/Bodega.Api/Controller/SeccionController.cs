@@ -13,6 +13,12 @@ namespace Bodega.Api.Controller
         {
             _mediator = mediator;
         }
+        [HttpGet("ListarSecciones")]
+        public async Task<ActionResult<string>> ListarSecciones([FromBody] CrearSeccionCommand command)
+        {
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
         [HttpPost("CrearSeccion")]
         public async Task<ActionResult<string>> CrearProveedor([FromBody] CrearSeccionCommand command)
         {

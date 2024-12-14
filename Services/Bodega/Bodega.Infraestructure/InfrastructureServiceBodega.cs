@@ -22,6 +22,7 @@ namespace Bodega.Infraestructure
             serviceCollection.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
             serviceCollection.AddScoped(typeof(ICategoriaRepository), typeof(CategoriaRepository));
             serviceCollection.AddScoped(typeof(IProveedorRepository), typeof(ProveedorRepository));
+            serviceCollection.AddScoped(typeof(ISeccionRepository), typeof(SeccionRepository));
 
             return serviceCollection;
         }
