@@ -36,6 +36,7 @@ const Proveedores = () => {
     { key: 4, name: "Teléfono", fieldName: "telefono", minWidth: 20 },
     { key: 5, name: "Emaíl", fieldName: "email", minWidth: 20 },
     { key: 6, name: "Dirección", fieldName: "direccion", minWidth: 20 },
+    { key: 7, name: "Productos", fieldName: "", minWidth: 20, onRender: () => (<>rsd</>)},
   ];
   return (
     <>

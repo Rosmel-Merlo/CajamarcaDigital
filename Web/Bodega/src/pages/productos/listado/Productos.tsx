@@ -3,6 +3,7 @@ import { CabeceraComponent } from "../../../components/tablas/cabeceras/Cabecera
 import { TableComponent } from "../../../components/tablas/TableComponent";
 import EndPointsProducto from "../../../api/bodega/endpoints/EndPointsProducto";
 import { IColumn } from "../../../interfaces/ITableComponent/ITableComponent";
+import { Button } from "@fluentui/react-components";
 
 const Productos = () => {
   const [items, setItems] = useState<[]>([]);
@@ -56,6 +57,25 @@ const Productos = () => {
       name: "Codigo",
       fieldName: "codigo",
       minWidth: 20,
+    },
+    {
+      key: 8,
+      name: "Proveedores",
+      fieldName: "",
+      minWidth: 20,
+      onRender: (item, index) => (
+        <>
+          {/* <Button
+            key={index}
+            onClick={()=>{}}
+            style={{ fontSize: "12px", fontWeight: "normal" }}
+            
+            icon={<CalendarMonth />}
+          >
+            {button.text}
+          </Button> */}
+        </>
+      ),
     },
   ];
   return (

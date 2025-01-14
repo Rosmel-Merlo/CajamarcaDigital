@@ -178,9 +178,67 @@ IF NOT EXISTS (
     SELECT * FROM [bodega].[_EFMigrationBodegaHistory]
     WHERE [MigrationId] = N'20241203050304_initial1.0'
 )
+
 BEGIN
     INSERT INTO [bodega].[_EFMigrationBodegaHistory] ([MigrationId], [ProductVersion])
     VALUES (N'20241203050304_initial1.0', N'9.0.0');
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [bodega].[_EFMigrationBodegaHistory]
+    WHERE [MigrationId] = N'20241217045541_initial1.1'
+)
+BEGIN
+    ALTER TABLE [bodega].[ProveedoresProductos] ADD [Creado] datetime2 NOT NULL DEFAULT '0001-01-01T00:00:00.0000000';
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [bodega].[_EFMigrationBodegaHistory]
+    WHERE [MigrationId] = N'20241217045541_initial1.1'
+)
+BEGIN
+    ALTER TABLE [bodega].[ProveedoresProductos] ADD [CreadoPor] datetime2 NOT NULL DEFAULT '0001-01-01T00:00:00.0000000';
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [bodega].[_EFMigrationBodegaHistory]
+    WHERE [MigrationId] = N'20241217045541_initial1.1'
+)
+BEGIN
+    ALTER TABLE [bodega].[ProveedoresProductos] ADD [Eliminado] datetime2 NULL;
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [bodega].[_EFMigrationBodegaHistory]
+    WHERE [MigrationId] = N'20241217045541_initial1.1'
+)
+BEGIN
+    ALTER TABLE [bodega].[ProveedoresProductos] ADD [EliminadoPor] datetime2 NULL;
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [bodega].[_EFMigrationBodegaHistory]
+    WHERE [MigrationId] = N'20241217045541_initial1.1'
+)
+BEGIN
+    ALTER TABLE [bodega].[ProveedoresProductos] ADD [Modificado] datetime2 NULL;
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [bodega].[_EFMigrationBodegaHistory]
+    WHERE [MigrationId] = N'20241217045541_initial1.1'
+)
+BEGIN
+    ALTER TABLE [bodega].[ProveedoresProductos] ADD [ModificadoPor] datetime2 NULL;
+END;
+
+IF NOT EXISTS (
+    SELECT * FROM [bodega].[_EFMigrationBodegaHistory]
+    WHERE [MigrationId] = N'20241217045541_initial1.1'
+)
+BEGIN
+    INSERT INTO [bodega].[_EFMigrationBodegaHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20241217045541_initial1.1', N'9.0.0');
 END;
 
 COMMIT;
