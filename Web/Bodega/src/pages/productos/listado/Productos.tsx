@@ -3,11 +3,15 @@ import { CabeceraComponent } from "../../../components/tablas/cabeceras/Cabecera
 import { TableComponent } from "../../../components/tablas/TableComponent";
 import EndPointsProducto from "../../../api/bodega/endpoints/EndPointsProducto";
 import { IColumn } from "../../../interfaces/ITableComponent/ITableComponent";
+import { IButtonGroup } from "../../../interfaces/IButtonsGroup/IButtonGroup";
+import { useIconsCatalogo } from "../../../hooks/iconCatalog/useIconsCatalogo";
+import PanelAgregarProducto from "./PanelAgregarProducto";
+import { useBoolean } from "@fluentui/react-hooks";
 import { Button } from "@fluentui/react-components";
 
 const Productos = () => {
   const [items, setItems] = useState<[]>([]);
-
+  const { Icon } = useIconsCatalogo(24);
   const getListarProductos = () => {
     EndPointsProducto.getListarProducto().then((res) => {
       if (res.status === 200) {
@@ -19,6 +23,9 @@ const Productos = () => {
   useEffect(() => {
     getListarProductos();
   }, []);
+
+  const [isOpenAdd, { setTrue: openPanelAdd, setFalse: onDismissPanel }] =
+    useBoolean(false);
 
   const columnas: IColumn[] = [
     { key: 1, name: "Nro", fieldName: "nro", minWidth: 20 },
@@ -65,17 +72,24 @@ const Productos = () => {
       minWidth: 20,
       onRender: (item, index) => (
         <>
-          {/* <Button
+          <Button
             key={index}
-            onClick={()=>{}}
+            appearance="transparent"
+            onClick={() => {}}
             style={{ fontSize: "12px", fontWeight: "normal" }}
-            
-            icon={<CalendarMonth />}
-          >
-            {button.text}
-          </Button> */}
+            icon={Icon("Detalle")}
+          ></Button>
         </>
       ),
+    },
+  ];
+
+  const LeftBottom: IButtonGroup[] = [
+    {
+      text: "Agregar",
+      type: "primary",
+      icon: Icon("Agregar"),
+      onClick: openPanelAdd,
     },
   ];
   return (
@@ -85,8 +99,9 @@ const Productos = () => {
         column={columnas}
         data={items}
         isLoading={false}
-        leftButtons={[]}
+        leftButtons={LeftBottom}
       />
+      <PanelAgregarProducto isOpen={isOpenAdd} onDismiss={onDismissPanel} />
     </>
   );
 };

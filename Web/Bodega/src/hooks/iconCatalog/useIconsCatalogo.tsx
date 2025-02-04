@@ -12,22 +12,31 @@ import {
   GridDots24Filled,
   AlertRegular,
   SettingsRegular,
+  bundleIcon,
+  AddFilled,
+  AppsListRegular,
+  DeleteFilled,
 } from "@fluentui/react-icons";
+
 import { FlechaDerecha, FlechaIzquierda } from "../../utils/IconsSVG";
+
+const AgregarIcon = bundleIcon(AddFilled, AddRegular);
+const EliminarIcon = bundleIcon(DeleteFilled, DeleteRegular);
+const DetalleIcon = bundleIcon(AppsListFilled, AppsListRegular);
 
 export const useIconsCatalogo = (size: number) => {
   const iconos: IICON[] = [
     {
       text: "Eliminar",
-      icon: <DeleteRegular fontSize={size} />,
+      icon: <EliminarIcon fontSize={size} />,
+    },
+    {
+      text: "Agregar",
+      icon: <AgregarIcon fontSize={size} />,
     },
     {
       text: "Menu",
       icon: <GridDots24Filled fontSize={size} />,
-    },
-    {
-      text: "Agregar",
-      icon: <AddRegular fontSize={size} />,
     },
     {
       text: "Refrescar",
@@ -43,7 +52,7 @@ export const useIconsCatalogo = (size: number) => {
     },
     {
       text: "Detalle",
-      icon: <AppsListFilled fontSize={size} />,
+      icon: <DetalleIcon fontSize={size} />,
     },
     {
       text: "Descargar",
@@ -101,10 +110,8 @@ export const useIconsCatalogo = (size: number) => {
     | "Configuraciones";
 
   const Icon = (textIcon: ValoresUnion) => {
+    const aux = iconos.filter((item) => item.text === textIcon);
 
-      const aux = iconos.filter((item) => item.text === textIcon);
-      
- 
     return aux[0]?.icon;
   };
 

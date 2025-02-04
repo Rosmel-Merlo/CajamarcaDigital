@@ -14,6 +14,7 @@ import {
 import { useStyles } from "../../styles/LabelFontSyles";
 import { IButtonGroup } from "../../interfaces/IButtonsGroup/IButtonGroup";
 import { ChangeEvent, Fragment } from "react";
+import { ButtonsGroupTabla } from "../buttonsGroup/ButtonsGroupTabla";
 
 interface ITableComponent {
   isSearch?: boolean;
@@ -33,6 +34,7 @@ export const TableComponent = (props: ITableComponent) => {
 
   return (
     <>
+      <ButtonsGroupTabla leftButtons={props.leftButtons} />
       <Table size={"small"} aria-label="asdfasdfs" noNativeElements={true}>
         <TableHeader>
           <TableRow>
@@ -77,7 +79,7 @@ export const TableComponent = (props: ITableComponent) => {
                           style={{
                             minWidth: column.minWidth,
                             maxWidth: column.maxWidth ?? "auto",
-                            padding: "0px 8px",
+                            padding: "0px 0px",
                           }}
                         >
                           {column.onRender(item, indexItem)}

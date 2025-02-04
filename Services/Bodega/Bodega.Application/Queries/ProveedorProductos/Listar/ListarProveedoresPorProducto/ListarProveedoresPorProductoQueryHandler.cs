@@ -19,14 +19,14 @@ namespace Bodega.Application.Queries.ProveedorProductos.Listar.ListarProveedores
         {
             try
             {
-                Expression<Func<ProveedorProducto, bool>> fAll = x => x.Eliminado != null && x.ProductoId.Equals(request.ProductoId);
+                Expression<Func<ProveedorProducto, bool>> fAll = x => x.Eliminado == null && x.ProductoId.Equals(request.ProductoId);
 
                 List<Expression<Func<ProveedorProducto, object>>> include = new List<Expression<Func<ProveedorProducto, object>>>();
                 include.Add(x => x.Proveedor);
 
                 var proveedores = await _proveedorProductoRepository.GetAsync(fAll, null, include);
 
-                List<ListarProveedoresPorProductoDTO> response = (from x in proveedores
+                var response = (from x in proveedores
                                                                   select new ListarProveedoresPorProductoDTO
                                                                   {
                                                                       ProveedorId = x.ProveedorId,
