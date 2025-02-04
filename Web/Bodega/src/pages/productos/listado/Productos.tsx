@@ -1,28 +1,20 @@
-import { useEffect, useState } from "react";
 import { CabeceraComponent } from "../../../components/tablas/cabeceras/CabeceraComponent";
 import { TableComponent } from "../../../components/tablas/TableComponent";
-import EndPointsProducto from "../../../api/bodega/endpoints/EndPointsProducto";
 import { IColumn } from "../../../interfaces/ITableComponent/ITableComponent";
 import { IButtonGroup } from "../../../interfaces/IButtonsGroup/IButtonGroup";
 import { useIconsCatalogo } from "../../../hooks/iconCatalog/useIconsCatalogo";
 import PanelAgregarProducto from "./PanelAgregarProducto";
 import { useBoolean } from "@fluentui/react-hooks";
 import { Button } from "@fluentui/react-components";
+import { useListarProductos } from "../hooks/useListarProductos";
+import { useAgregarProducto } from "../hooks/useAgregarProducto";
 
 const Productos = () => {
-  const [items, setItems] = useState<[]>([]);
   const { Icon } = useIconsCatalogo(24);
-  const getListarProductos = () => {
-    EndPointsProducto.getListarProducto().then((res) => {
-      if (res.status === 200) {
-        setItems(res.data);
-      }
-    });
-  };
+  const { items } = useListarProductos();
 
-  useEffect(() => {
-    getListarProductos();
-  }, []);
+  const { onChangeListarProductos, postAgregarProductos, payload } =
+    useAgregarProducto();
 
   const [isOpenAdd, { setTrue: openPanelAdd, setFalse: onDismissPanel }] =
     useBoolean(false);
@@ -95,13 +87,19 @@ const Productos = () => {
   return (
     <>
       <CabeceraComponent subTitulo="Productos" titulo="Listado de Productos" />
+      <pre>{JSON.stringify(payload, null, 2)}</pre>
       <TableComponent
         column={columnas}
         data={items}
         isLoading={false}
         leftButtons={LeftBottom}
       />
-      <PanelAgregarProducto isOpen={isOpenAdd} onDismiss={onDismissPanel} />
+      <PanelAgregarProducto
+        isOpen={isOpenAdd}
+        onDismiss={onDismissPanel}
+        onChangeAgregarProducto={onChangeListarProductos}
+        onClickCrear={postAgregarProductos}
+      />
     </>
   );
 };
