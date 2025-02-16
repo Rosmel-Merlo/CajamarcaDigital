@@ -13,9 +13,7 @@ const Productos = () => {
   const { Icon } = useIconsCatalogo(24);
   const { items } = useListarProductos();
 
-  const { onChangeListarProductos, postAgregarProductos, payload } =
-    useAgregarProducto();
-
+ 
   const [isOpenAdd, { setTrue: openPanelAdd, setFalse: onDismissPanel }] =
     useBoolean(false);
 
@@ -87,7 +85,7 @@ const Productos = () => {
   return (
     <>
       <CabeceraComponent subTitulo="Productos" titulo="Listado de Productos" />
-      <pre>{JSON.stringify(payload, null, 2)}</pre>
+  
       <TableComponent
         column={columnas}
         data={items}
@@ -97,8 +95,7 @@ const Productos = () => {
       <PanelAgregarProducto
         isOpen={isOpenAdd}
         onDismiss={onDismissPanel}
-        onChangeAgregarProducto={onChangeListarProductos}
-        onClickCrear={postAgregarProductos}
+       
       />
     </>
   );

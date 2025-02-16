@@ -1,24 +1,23 @@
-import { ChangeEvent, useCallback } from "react";
+import { useMemo } from "react";
 import Panel from "../../../components/panel/Panel";
 import HeaderPanel from "../../../components/panel/HeaderPanel";
-import { Button, InputOnChangeData } from "@fluentui/react-components";
+import { Button } from "@fluentui/react-components";
 import { useIconsCatalogo } from "../../../hooks/iconCatalog/useIconsCatalogo";
 import "../../../styles/PanelStyleContent.css";
 import InputComponent from "../../../components/input/InputComponent";
+import { useAgregarProducto } from "../hooks/useAgregarProducto";
+
 interface IPanelAgregarProducto {
   isOpen: boolean;
   onDismiss: () => void;
-  onChangeAgregarProducto: (
-    ev: ChangeEvent<HTMLInputElement>,
-    data: InputOnChangeData,
-    campo: string
-  ) => void;
-  onClickCrear: ()=> void;
 }
 
 const PanelAgregarProducto = (props: IPanelAgregarProducto) => {
   const { Icon } = useIconsCatalogo(24);
-  const renderHeader = useCallback(
+  const { onChangeCrearProductos, errors, postAgregarProductos, payload } =
+    useAgregarProducto();
+
+  const renderHeader = useMemo(
     () => (
       <HeaderPanel
         titulo="Agregar Productos"
@@ -27,7 +26,8 @@ const PanelAgregarProducto = (props: IPanelAgregarProducto) => {
     ),
     []
   );
-  const renderFooter = useCallback(
+
+  const renderFooter = useMemo(
     () => (
       <div
         style={{
@@ -51,7 +51,7 @@ const PanelAgregarProducto = (props: IPanelAgregarProducto) => {
         <div>
           <Button
             key={"right2"}
-            onClick={props.onClickCrear}
+            onClick={postAgregarProductos}
             style={{ fontSize: "12px", fontWeight: "normal" }}
             appearance={"primary"}
             icon={Icon("Agregar")}
@@ -61,7 +61,7 @@ const PanelAgregarProducto = (props: IPanelAgregarProducto) => {
         </div>
       </div>
     ),
-    [props.onClickCrear]
+    [postAgregarProductos, props.onDismiss]
   );
   return (
     <>
@@ -69,61 +69,71 @@ const PanelAgregarProducto = (props: IPanelAgregarProducto) => {
         isOpen={props.isOpen}
         onDismiss={props.onDismiss}
         size="medium"
-        onRenderHeader={renderHeader}
-        onRenderFooter={renderFooter}
+        onRenderHeader={() => renderHeader}
+        onRenderFooter={() => renderFooter}
       >
         <div className="cards">
           <div className="card">
             <InputComponent
               text={"Nombre"}
-              onChange={(e, d) => props.onChangeAgregarProducto(e, d, "nombre")}
+              onChange={(e, d) => onChangeCrearProductos(e, d, "nombre")}
+              value={payload.nombre}
+              error={errors.nombre}
             />
           </div>
           <div className="card">
             <InputComponent
               text={"Descripción"}
-              onChange={(e, d) =>
-                props.onChangeAgregarProducto(e, d, "descripcion")
-              }
+              onChange={(e, d) => onChangeCrearProductos(e, d, "descripcion")}
+              value={payload.descripcion}
+              error={errors.descripcion}
             />
           </div>
           <div className="card">
             <InputComponent
+              type="number"
               text={"Precio Compra"}
-              onChange={(e, d) =>
-                props.onChangeAgregarProducto(e, d, "PrecioCompra")
-              }
+              onChange={(e, d) => onChangeCrearProductos(e, d, "PrecioCompra")}
+              value={payload.precioCompra}
+              error={errors.precioCompra}
             />
           </div>
           <div className="card">
             <InputComponent
               text={"Precio Venta"}
-              onChange={(e, d) =>
-                props.onChangeAgregarProducto(e, d, "PrecioVenta")
-              }
+              type="number"
+              onChange={(e, d) => onChangeCrearProductos(e, d, "PrecioVenta")}
+              value={payload.precioVenta}
+              error={errors.precioVenta}
             />
           </div>
           <div className="card">
             <InputComponent
-              text={"aqui va la cat"}
-              onChange={(e, d) => props.onChangeAgregarProducto(e, d, "categoriaId")}
+              text={"Categoria"}
+              onChange={(e, d) => onChangeCrearProductos(e, d, "categoriaId")}
+              value={payload.categoriaId}
+              error={errors.categoriaId}
             />
           </div>
           <div className="card">
             <InputComponent
+              type="number"
               text={"Stock Mínimo"}
-              onChange={(e, d) =>
-                props.onChangeAgregarProducto(e, d, "stockMinimo")
-              }
+              onChange={(e, d) => onChangeCrearProductos(e, d, "stockMinimo")}
+              value={payload.stockMinimo}
+              error={errors.stockMinimo}
             />
           </div>
           <div className="card">
             <InputComponent
               text={"Código"}
-              onChange={(e, d) => props.onChangeAgregarProducto(e, d, "codigo")}
+              onChange={(e, d) => onChangeCrearProductos(e, d, "codigo")}
+              value={payload.codigo}
+              error={errors.codigo}
             />
           </div>
         </div>
+        <pre>{JSON.stringify(errors, null, 2)}</pre>
       </Panel>
     </>
   );

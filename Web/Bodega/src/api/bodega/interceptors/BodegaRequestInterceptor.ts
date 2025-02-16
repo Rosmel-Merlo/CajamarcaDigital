@@ -4,7 +4,7 @@ const BodegaRequestInterceptor = (config: any) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
-  console.log("Request Interceptor:", config);
+/*   console.log("Request Interceptor:", config); */
   return config;
 };
 

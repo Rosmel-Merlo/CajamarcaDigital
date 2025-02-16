@@ -4,6 +4,15 @@ export interface ICrearProducto {
   precioCompra: number;
   precioVenta: number;
   categoriaId: string;
-  stockMinimo: string;
+  stockMinimo: number;
   codigo: string;
 }
+export const InitCrearProductoDTO: ICrearProducto = {
+  nombre: "",
+  descripcion: "",
+  precioCompra: 0,
+  precioVenta: 0,
+  categoriaId: "",
+  stockMinimo: 0,
+  codigo: "",
+};

@@ -1,7 +1,7 @@
 import {
+  Field,
   Input,
   InputOnChangeData,
-  Label,
   Slot,
   useId,
 } from "@fluentui/react-components";
@@ -10,25 +10,49 @@ import { ChangeEvent } from "react";
 
 interface IInputComponent {
   text: string;
+  error?: string | undefined;
   onChange?: (
     ev: ChangeEvent<HTMLInputElement>,
     data: InputOnChangeData
   ) => void;
+  value?: string | number;
   Icon?: Slot<"span">;
+  type?:
+    | "text"
+    | "email"
+    | "password"
+    | "search"
+    | "tel"
+    | "url"
+    | "date"
+    | "datetime-local"
+    | "month"
+    | "number"
+    | "time"
+    | "week";
 }
 
 const InputComponent = (props: IInputComponent) => {
-  const beforeId = useId("content-before");
+  const inputId = useId("input");
+  const errorId = useId("error-message");
 
+  const hasError = Boolean(props.error && props.error.trim().length > 0);
   return (
-    <div className="inputComponet-contenedor">
-      <Label htmlFor={beforeId}>{props.text}</Label>
+    <Field
+      label={props.text}
+      validationState={props.error ? "error" : "none"}
+      validationMessage={props.error}
+    >
       <Input
+        id={inputId}
+        aria-invalid={hasError}
+        aria-describedby={hasError ? errorId : undefined}
         onChange={props.onChange}
+        value={props.value == undefined ? "" : props.value.toString()}
         contentBefore={props.Icon}
-        id={beforeId}
+        type={props.type}
       />
-    </div>
+    </Field>
   );
 };
 

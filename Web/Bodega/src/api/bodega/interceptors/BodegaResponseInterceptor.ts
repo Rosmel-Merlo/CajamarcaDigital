@@ -1,5 +1,5 @@
 const BodegaResponseInterceptor = (response: any) => {
-  console.log("Response Interceptor:", response);
+  /* console.log("Response Interceptor:", response); */
   return response;
 };
 
