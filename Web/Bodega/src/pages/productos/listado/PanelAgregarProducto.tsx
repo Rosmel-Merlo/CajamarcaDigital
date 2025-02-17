@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import Panel from "../../../components/panel/Panel";
 import HeaderPanel from "../../../components/panel/HeaderPanel";
 import { Button } from "@fluentui/react-components";
@@ -14,8 +14,14 @@ interface IPanelAgregarProducto {
 
 const PanelAgregarProducto = (props: IPanelAgregarProducto) => {
   const { Icon } = useIconsCatalogo(24);
-  const { onChangeCrearProductos, errors, postAgregarProductos, payload } =
-    useAgregarProducto();
+  const {
+    onChangeCrearProductos,
+    errors,
+    postAgregarProductos,
+    payload,
+    clearPayload,
+    loading,
+  } = useAgregarProducto();
 
   const renderHeader = useMemo(
     () => (
@@ -40,7 +46,10 @@ const PanelAgregarProducto = (props: IPanelAgregarProducto) => {
           <Button
             disabled={false}
             key={"left"}
-            onClick={props.onDismiss}
+            onClick={() => {
+              props.onDismiss();
+              clearPayload();
+            }}
             style={{ fontSize: "12px", fontWeight: "normal" }}
             appearance={"outline"}
             icon={Icon("FechasIzquierda")}
@@ -63,6 +72,9 @@ const PanelAgregarProducto = (props: IPanelAgregarProducto) => {
     ),
     [postAgregarProductos, props.onDismiss]
   );
+  useEffect(() => {
+    if (!props.isOpen) clearPayload();
+  }, [props.isOpen]);
   return (
     <>
       <Panel
@@ -71,6 +83,7 @@ const PanelAgregarProducto = (props: IPanelAgregarProducto) => {
         size="medium"
         onRenderHeader={() => renderHeader}
         onRenderFooter={() => renderFooter}
+        loading={loading}
       >
         <div className="cards">
           <div className="card">
@@ -133,7 +146,6 @@ const PanelAgregarProducto = (props: IPanelAgregarProducto) => {
             />
           </div>
         </div>
-        <pre>{JSON.stringify(errors, null, 2)}</pre>
       </Panel>
     </>
   );

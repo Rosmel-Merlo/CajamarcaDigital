@@ -7,11 +7,14 @@ import {
 import { InputOnChangeData } from "@fluentui/react-components";
 import { useValidateform } from "../../../hooks/validationForm/useValidateform";
 import { crearProductoValidationRules } from "../validation/crearProductoValidationRules";
+import { useBoolean } from "@fluentui/react-hooks";
 
 export const useAgregarProducto = () => {
   const { validateForm } = useValidateform();
   const [payload, setPayload] = useState<ICrearProducto>(InitCrearProductoDTO);
   const [errors, setErrors] = useState<ValidationErrors<ICrearProducto>>({});
+  const [loading, { setTrue: LoadingTrue, setFalse: LoadingFalse }] =
+    useBoolean(false);
 
   const onChangeCrearProductos = (
     ev: ChangeEvent<HTMLInputElement>,
@@ -55,6 +58,11 @@ export const useAgregarProducto = () => {
     }
   };
 
+  const clearPayload = () => {
+    setPayload(InitCrearProductoDTO);
+    setErrors({});
+  };
+
   const viewErrors = async () => {
     var errors = await validateForm(payload, crearProductoValidationRules);
     setErrors(errors);
@@ -64,13 +72,22 @@ export const useAgregarProducto = () => {
   const postAgregarProductos = async () => {
     var errores = await viewErrors();
     if (Object.keys(errores).length === 0) {
+      LoadingTrue();
       EndPointsProducto.postAgregarProducto(payload).then((res) => {
         if (res.status === 200) {
           console.log("Producto Creado");
         }
+        LoadingFalse();
       });
     }
   };
 
-  return { onChangeCrearProductos, postAgregarProductos, payload, errors };
+  return {
+    onChangeCrearProductos,
+    postAgregarProductos,
+    payload,
+    errors,
+    clearPayload,
+    loading,
+  };
 };

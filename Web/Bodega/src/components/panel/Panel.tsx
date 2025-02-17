@@ -8,6 +8,7 @@ import {
   OverlayDrawer,
 } from "@fluentui/react-components";
 import { DismissSquareRegular } from "@fluentui/react-icons";
+import { ProgressBarComponent } from "../progressBar/ProgressBarComponent";
 
 interface IPanel {
   isOpen: boolean;
@@ -16,6 +17,7 @@ interface IPanel {
   onRenderHeader?: () => JSX.Element;
   onRenderFooter?: () => JSX.Element;
   children?: any;
+  loading: Boolean;
 }
 
 const Panel = (props: IPanel) => {
@@ -42,7 +44,14 @@ const Panel = (props: IPanel) => {
           </DrawerHeaderTitle>
           <Divider appearance="brand"></Divider>
         </DrawerHeader>
-        <DrawerBody>{props.children}</DrawerBody>
+
+        <DrawerBody>
+          {!props.loading ? (
+            props.children
+          ) : (
+            <ProgressBarComponent text="Se estan validando los datos, espero porfavor"></ProgressBarComponent>
+          )}
+        </DrawerBody>
 
         <DrawerFooter>
           {!props.onRenderFooter ? <>si</> : <>{props.onRenderFooter()}</>}
