@@ -59,7 +59,9 @@ export const useAgregarProducto = () => {
   };
 
   const onChangeCombo = (event: SelectionEvents, data: OptionOnSelectData) => {
-    setPayload({ ...payload, categoriaId: data.optionValue });
+    if (event != undefined) {
+      setPayload({ ...payload, categoriaId: data.optionValue });
+    }
   };
   const clearPayload = () => {
     setPayload(InitCrearProductoDTO);

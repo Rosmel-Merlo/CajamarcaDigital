@@ -78,6 +78,12 @@ const Productos = () => {
       icon: Icon("Agregar"),
       onClick: openPanelAdd,
     },
+    {
+      text: "Actualizar",
+      type: "outline",
+      icon: Icon("Refrescar"),
+      onClick: openPanelAdd,
+    },
   ];
   return (
     <>
