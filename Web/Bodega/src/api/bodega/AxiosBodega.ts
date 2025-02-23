@@ -14,6 +14,7 @@ const axiosBodega = axios.create({
 });
 
 axiosBodega.interceptors.request.use(BodegaRequestInterceptor);
+
 axiosBodega.interceptors.response.use(
   BodegaResponseInterceptor,
   BodegaResponseErrorInterceptor

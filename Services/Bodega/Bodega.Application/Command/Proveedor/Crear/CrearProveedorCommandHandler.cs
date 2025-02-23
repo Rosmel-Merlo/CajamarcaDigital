@@ -23,7 +23,7 @@ namespace Bodega.Application.Command.Proveedor.Crear
                     Ruc = request.Ruc,
                     NombreContacto = request.NombreContacto,
                     TelefonoContacto = request.TelefonoContacto,
-                    Telefono = request.Tefono,
+                    Telefono = request.Telefono,
                     Email = request.Email,
                     Direccion = request.Direccion,
                 };

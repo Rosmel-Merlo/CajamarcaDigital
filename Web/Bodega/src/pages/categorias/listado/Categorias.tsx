@@ -3,8 +3,14 @@ import { TableComponent } from "../../../components/tablas/TableComponent";
 import { IColumn } from "../../../interfaces/ITableComponent/ITableComponent";
 import EndPointsCategoria from "../../../api/bodega/endpoints/EndPointsCategoria";
 import { CabeceraComponent } from "../../../components/tablas/cabeceras/CabeceraComponent";
+import { IButtonGroup } from "../../../interfaces/IButtonsGroup/IButtonGroup";
+import { useIconsCatalogo } from "../../../hooks/iconCatalog/useIconsCatalogo";
+import { useBoolean } from "@fluentui/react-hooks";
+import { PanelAgregarCategoria } from "./PanelAgregarCategoria";
 
 const Categorias = () => {
+  const { Icon } = useIconsCatalogo(24);
+
   const [items, setItems] = useState<[]>([]);
 
   const getListarCategorias = () => {
@@ -14,7 +20,8 @@ const Categorias = () => {
       }
     });
   };
-
+  const [isOpenAdd, { setTrue: openPanelAdd, setFalse: onDismissPanel }] =
+    useBoolean(false);
   useEffect(() => {
     getListarCategorias();
   }, []);
@@ -23,6 +30,14 @@ const Categorias = () => {
     { key: 1, name: "Nombre", fieldName: "nombreCategoria", minWidth: 20 },
     { key: 2, name: "Descripción", fieldName: "descripcion", minWidth: 20 },
     { key: 3, name: "Codigo", fieldName: "codigo", minWidth: 20 },
+  ];
+  const LeftBottom: IButtonGroup[] = [
+    {
+      text: "Agregar",
+      type: "primary",
+      icon: Icon("Agregar"),
+      onClick: openPanelAdd,
+    },
   ];
   return (
     <>
@@ -34,8 +49,9 @@ const Categorias = () => {
         column={columnas}
         data={items}
         isLoading={false}
-        leftButtons={[]}
+        leftButtons={LeftBottom}
       />
+      <PanelAgregarCategoria isOpen={isOpenAdd} onDismiss={onDismissPanel} />
     </>
   );
 };

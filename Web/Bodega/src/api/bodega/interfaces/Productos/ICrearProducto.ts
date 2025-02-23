@@ -3,7 +3,7 @@ export interface ICrearProducto {
   descripcion: string;
   precioCompra: number;
   precioVenta: number;
-  categoriaId: string;
+  categoriaId: string| undefined;
   stockMinimo: number;
   codigo: string;
 }

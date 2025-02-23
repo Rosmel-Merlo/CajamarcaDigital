@@ -1,6 +1,7 @@
 
 using Bodega.Application.Command.Categorias.Crear;
 using Bodega.Application.Queries.Categorias.ListarCategoria;
+using Bodega.Application.Queries.Categorias.ListarComboBoxCategoria;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,6 +28,13 @@ namespace Bodega.Api.Controller
         public async Task<ActionResult<string>> CrearCategoria([FromBody] CrearCategoriaCommand command)
         {
             var response = await _mediator.Send(command);
+            return Ok(response);
+        }
+        [HttpGet("ListarComboBoxCategorias")]
+        public async Task<ActionResult<List<ListarComboBoxCategoriaDTO>>> ListarComboBoxCategoria()
+        {
+            ListarComboBoxCategoriaQuery query = new ListarComboBoxCategoriaQuery();
+            var response = await _mediator.Send(query);
             return Ok(response);
         }
     }

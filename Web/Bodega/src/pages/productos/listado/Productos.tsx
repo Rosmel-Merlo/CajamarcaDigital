@@ -7,18 +7,15 @@ import PanelAgregarProducto from "./PanelAgregarProducto";
 import { useBoolean } from "@fluentui/react-hooks";
 import { Button } from "@fluentui/react-components";
 import { useListarProductos } from "../hooks/useListarProductos";
-import { useAgregarProducto } from "../hooks/useAgregarProducto";
 
 const Productos = () => {
   const { Icon } = useIconsCatalogo(24);
   const { items } = useListarProductos();
 
- 
   const [isOpenAdd, { setTrue: openPanelAdd, setFalse: onDismissPanel }] =
     useBoolean(false);
 
   const columnas: IColumn[] = [
-    { key: 1, name: "Nro", fieldName: "nro", minWidth: 20 },
     {
       key: 2,
       name: "Nombre Producto",
@@ -85,18 +82,14 @@ const Productos = () => {
   return (
     <>
       <CabeceraComponent subTitulo="Productos" titulo="Listado de Productos" />
-  
+
       <TableComponent
         column={columnas}
         data={items}
         isLoading={false}
         leftButtons={LeftBottom}
       />
-      <PanelAgregarProducto
-        isOpen={isOpenAdd}
-        onDismiss={onDismissPanel}
-       
-      />
+      <PanelAgregarProducto isOpen={isOpenAdd} onDismiss={onDismissPanel} />
     </>
   );
 };

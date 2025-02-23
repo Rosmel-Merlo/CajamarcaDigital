@@ -1,26 +1,21 @@
-import { useEffect, useState } from "react";
 import { CabeceraComponent } from "../../../components/tablas/cabeceras/CabeceraComponent";
 import { TableComponent } from "../../../components/tablas/TableComponent";
 import { IColumn } from "../../../interfaces/ITableComponent/ITableComponent";
-import EndPointsProveedor from "../../../api/bodega/endpoints/EndPointsProveedor";
+import { IButtonGroup } from "../../../interfaces/IButtonsGroup/IButtonGroup";
+import { useIconsCatalogo } from "../../../hooks/iconCatalog/useIconsCatalogo";
+import { PanelAgregarProveedor } from "./PanelAgregarProveedor";
+import { useBoolean } from "@fluentui/react-hooks";
+import { useListarProveedor } from "../hooks/useListarProveedor";
 
 const Proveedores = () => {
-  const [items, setItems] = useState<[]>([]);
+  const { Icon } = useIconsCatalogo(24);
+  const { items } = useListarProveedor();
 
-  const getListarCategorias = () => {
-    EndPointsProveedor.getListarProveedor().then((res) => {
-      if (res.status === 200) {
-        setItems(res.data);
-      }
-    });
-  };
-
-  useEffect(() => {
-    getListarCategorias();
-  }, []);
+  const [isOpenAdd, { setTrue: openPanelAdd, setFalse: onDismissPanel }] =
+    useBoolean(false);
 
   const columnas: IColumn[] = [
-    { key: 1, name: "Nombre", fieldName: "ruc", minWidth: 20 },
+    { key: 1, name: "RUC", fieldName: "ruc", minWidth: 20 },
     {
       key: 2,
       name: "Nombre Contacto",
@@ -36,7 +31,21 @@ const Proveedores = () => {
     { key: 4, name: "Teléfono", fieldName: "telefono", minWidth: 20 },
     { key: 5, name: "Emaíl", fieldName: "email", minWidth: 20 },
     { key: 6, name: "Dirección", fieldName: "direccion", minWidth: 20 },
-    { key: 7, name: "Productos", fieldName: "", minWidth: 20, onRender: () => (<>rsd</>)},
+    {
+      key: 7,
+      name: "Productos",
+      fieldName: "",
+      minWidth: 20,
+      onRender: () => <>rsd</>,
+    },
+  ];
+  const LeftBottom: IButtonGroup[] = [
+    {
+      text: "Agregar",
+      type: "primary",
+      icon: Icon("Agregar"),
+      onClick: openPanelAdd,
+    },
   ];
   return (
     <>
@@ -48,8 +57,9 @@ const Proveedores = () => {
         column={columnas}
         data={items}
         isLoading={false}
-        leftButtons={[]}
+        leftButtons={LeftBottom}
       />
+      <PanelAgregarProveedor isOpen={isOpenAdd} onDismiss={onDismissPanel} />
     </>
   );
 };

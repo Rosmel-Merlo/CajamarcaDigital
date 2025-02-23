@@ -4,7 +4,11 @@ import {
   ICrearProducto,
   InitCrearProductoDTO,
 } from "../../../api/bodega/interfaces/Productos/ICrearProducto";
-import { InputOnChangeData } from "@fluentui/react-components";
+import {
+  InputOnChangeData,
+  OptionOnSelectData,
+  SelectionEvents,
+} from "@fluentui/react-components";
 import { useValidateform } from "../../../hooks/validationForm/useValidateform";
 import { crearProductoValidationRules } from "../validation/crearProductoValidationRules";
 import { useBoolean } from "@fluentui/react-hooks";
@@ -48,16 +52,15 @@ export const useAgregarProducto = () => {
           setPayload({ ...payload, stockMinimo: Number(data.value) });
 
           break;
-        case "categoriaId":
-          setPayload({ ...payload, categoriaId: data.value });
-
-          break;
         default:
           break;
       }
     }
   };
 
+  const onChangeCombo = (event: SelectionEvents, data: OptionOnSelectData) => {
+    setPayload({ ...payload, categoriaId: data.optionValue });
+  };
   const clearPayload = () => {
     setPayload(InitCrearProductoDTO);
     setErrors({});
@@ -89,5 +92,6 @@ export const useAgregarProducto = () => {
     errors,
     clearPayload,
     loading,
+    onChangeCombo,
   };
 };

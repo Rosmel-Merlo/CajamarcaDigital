@@ -6,6 +6,8 @@ import { useIconsCatalogo } from "../../../hooks/iconCatalog/useIconsCatalogo";
 import "../../../styles/PanelStyleContent.css";
 import InputComponent from "../../../components/input/InputComponent";
 import { useAgregarProducto } from "../hooks/useAgregarProducto";
+import { ComboBoxComponent } from "../../../components/comboBox/ComboBoxComponent";
+import { useListarCategoriaCombo } from "../../categorias/hooks/useListarCategoriaCombo";
 
 interface IPanelAgregarProducto {
   isOpen: boolean;
@@ -21,7 +23,10 @@ const PanelAgregarProducto = (props: IPanelAgregarProducto) => {
     payload,
     clearPayload,
     loading,
+    onChangeCombo,
   } = useAgregarProducto();
+
+  const { getListarComboCategoria, listarCombo } = useListarCategoriaCombo();
 
   const renderHeader = useMemo(
     () => (
@@ -72,8 +77,13 @@ const PanelAgregarProducto = (props: IPanelAgregarProducto) => {
     ),
     [postAgregarProductos, props.onDismiss]
   );
+
   useEffect(() => {
-    if (!props.isOpen) clearPayload();
+    if (!props.isOpen) {
+      clearPayload();
+    } else {
+      getListarComboCategoria();
+    }
   }, [props.isOpen]);
   return (
     <>
@@ -121,11 +131,10 @@ const PanelAgregarProducto = (props: IPanelAgregarProducto) => {
             />
           </div>
           <div className="card">
-            <InputComponent
-              text={"Categoria"}
-              onChange={(e, d) => onChangeCrearProductos(e, d, "categoriaId")}
-              value={payload.categoriaId}
-              error={errors.categoriaId}
+            <ComboBoxComponent
+              onChange={onChangeCombo}
+              text="Categoria"
+              options={listarCombo}
             />
           </div>
           <div className="card">
