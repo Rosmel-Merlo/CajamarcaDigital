@@ -6,10 +6,11 @@ import { useIconsCatalogo } from "../../../hooks/iconCatalog/useIconsCatalogo";
 import { PanelAgregarProveedor } from "./PanelAgregarProveedor";
 import { useBoolean } from "@fluentui/react-hooks";
 import { useListarProveedor } from "../hooks/useListarProveedor";
+import { Button } from "@fluentui/react-components";
 
 const Proveedores = () => {
   const { Icon } = useIconsCatalogo(24);
-  const { items } = useListarProveedor();
+  const { items, getListarCategorias } = useListarProveedor();
 
   const [isOpenAdd, { setTrue: openPanelAdd, setFalse: onDismissPanel }] =
     useBoolean(false);
@@ -36,7 +37,17 @@ const Proveedores = () => {
       name: "Productos",
       fieldName: "",
       minWidth: 20,
-      onRender: () => <>rsd</>,
+      onRender: (item, index) => (
+        <>
+          <Button
+            key={index}
+            appearance="transparent"
+            onClick={() => {}}
+            style={{ fontSize: "12px", fontWeight: "normal" }}
+            icon={Icon("Detalle")}
+          ></Button>
+        </>
+      ),
     },
   ];
   const LeftBottom: IButtonGroup[] = [
@@ -45,6 +56,12 @@ const Proveedores = () => {
       type: "primary",
       icon: Icon("Agregar"),
       onClick: openPanelAdd,
+    },
+    {
+      text: "Actualizar",
+      type: "outline",
+      icon: Icon("Refrescar"),
+      onClick: getListarCategorias,
     },
   ];
   return (

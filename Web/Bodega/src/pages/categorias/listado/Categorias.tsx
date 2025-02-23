@@ -1,30 +1,17 @@
-import { useEffect, useState } from "react";
 import { TableComponent } from "../../../components/tablas/TableComponent";
 import { IColumn } from "../../../interfaces/ITableComponent/ITableComponent";
-import EndPointsCategoria from "../../../api/bodega/endpoints/EndPointsCategoria";
 import { CabeceraComponent } from "../../../components/tablas/cabeceras/CabeceraComponent";
 import { IButtonGroup } from "../../../interfaces/IButtonsGroup/IButtonGroup";
 import { useIconsCatalogo } from "../../../hooks/iconCatalog/useIconsCatalogo";
 import { useBoolean } from "@fluentui/react-hooks";
 import { PanelAgregarCategoria } from "./PanelAgregarCategoria";
+import { useListarCategoria } from "../hooks/useListarCategoria";
 
 const Categorias = () => {
   const { Icon } = useIconsCatalogo(24);
-
-  const [items, setItems] = useState<[]>([]);
-
-  const getListarCategorias = () => {
-    EndPointsCategoria.getListarCategorias().then((res) => {
-      if (res.status === 200) {
-        setItems(res.data);
-      }
-    });
-  };
+  const { getListarCategorias, items } = useListarCategoria();
   const [isOpenAdd, { setTrue: openPanelAdd, setFalse: onDismissPanel }] =
     useBoolean(false);
-  useEffect(() => {
-    getListarCategorias();
-  }, []);
 
   const columnas: IColumn[] = [
     { key: 1, name: "Nombre", fieldName: "nombreCategoria", minWidth: 20 },
@@ -37,6 +24,12 @@ const Categorias = () => {
       type: "primary",
       icon: Icon("Agregar"),
       onClick: openPanelAdd,
+    },
+    {
+      text: "Actualizar",
+      type: "outline",
+      icon: Icon("Refrescar"),
+      onClick: getListarCategorias,
     },
   ];
   return (

@@ -8,7 +8,7 @@ import { useBoolean } from "@fluentui/react-hooks";
 import { useListarSecciones } from "../hooks/useListarSecciones";
 
 const Secciones = () => {
-  const { items } = useListarSecciones();
+  const { items, getListarCategorias } = useListarSecciones();
   const { Icon } = useIconsCatalogo(24);
 
   const [isOpenAdd, { setTrue: openPanelAdd, setFalse: onDismissPanel }] =
@@ -39,7 +39,7 @@ const Secciones = () => {
       text: "Actualizar",
       type: "subtle",
       icon: Icon("Refrescar"),
-      // onClick: openPanelAdd,
+      onClick: getListarCategorias,
     },
   ];
   return (

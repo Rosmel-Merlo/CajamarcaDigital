@@ -10,7 +10,7 @@ import { useListarProductos } from "../hooks/useListarProductos";
 
 const Productos = () => {
   const { Icon } = useIconsCatalogo(24);
-  const { items } = useListarProductos();
+  const { items, getListarProductos } = useListarProductos();
 
   const [isOpenAdd, { setTrue: openPanelAdd, setFalse: onDismissPanel }] =
     useBoolean(false);
@@ -82,7 +82,7 @@ const Productos = () => {
       text: "Actualizar",
       type: "outline",
       icon: Icon("Refrescar"),
-      onClick: openPanelAdd,
+      onClick: getListarProductos,
     },
   ];
   return (

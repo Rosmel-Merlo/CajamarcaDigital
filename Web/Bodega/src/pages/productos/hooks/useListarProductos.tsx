@@ -15,5 +15,5 @@ export const useListarProductos = () => {
     getListarProductos();
   }, []);
 
-  return { items };
+  return { items, getListarProductos };
 };
