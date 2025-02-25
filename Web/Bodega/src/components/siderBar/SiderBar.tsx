@@ -123,7 +123,7 @@ export const SiderBar = (props: ISiderBar) => {
                                 margin: "0px 0px",
                                 padding: "10px 10px",
                               }}
-                              icon={Icon("Agregar")}
+                              icon={Icon(link.icon)}
                               value={link.url}
                             >
                               <Label

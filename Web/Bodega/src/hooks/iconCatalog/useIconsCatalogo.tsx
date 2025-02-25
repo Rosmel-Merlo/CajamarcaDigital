@@ -19,6 +19,8 @@ import {
   EditRegular,
   EditFilled,
   ArrowClockwiseFilled,
+  TextBulletListSquareFilled,
+  TextBulletListSquareRegular,
 } from "@fluentui/react-icons";
 
 import { FlechaDerecha, FlechaIzquierda } from "../../utils/IconsSVG";
@@ -28,6 +30,10 @@ const EliminarIcon = bundleIcon(DeleteFilled, DeleteRegular);
 const EditarIcon = bundleIcon(EditFilled, EditRegular);
 const DetalleIcon = bundleIcon(AppsListFilled, AppsListRegular);
 const RefrescarIcon = bundleIcon(ArrowClockwiseFilled, ArrowClockwiseRegular);
+const ListarIcon = bundleIcon(
+  TextBulletListSquareFilled,
+  TextBulletListSquareRegular
+);
 export const useIconsCatalogo = (size: number) => {
   const iconos: IICON[] = [
     {
@@ -45,6 +51,10 @@ export const useIconsCatalogo = (size: number) => {
     {
       text: "Refrescar",
       icon: <RefrescarIcon fontSize={size} />,
+    },
+    {
+      text: "Listar",
+      icon: <ListarIcon fontSize={size} />,
     },
     {
       text: "Detalle",
@@ -104,6 +114,7 @@ export const useIconsCatalogo = (size: number) => {
     | "Menu"
     | "Agregar"
     | "Refrescar"
+    | "Listar"
     | "Filtro"
     | "SalirLogin"
     | "Detalle"
@@ -117,7 +128,7 @@ export const useIconsCatalogo = (size: number) => {
     | "Alerta"
     | "Configuraciones";
 
-  const Icon = (textIcon: ValoresUnion) => {
+  const Icon = (textIcon: ValoresUnion | string) => {
     const aux = iconos.filter((item) => item.text === textIcon);
 
     return aux[0]?.icon;
