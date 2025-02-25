@@ -16,31 +16,43 @@ import {
   AddFilled,
   AppsListRegular,
   DeleteFilled,
+  EditRegular,
+  EditFilled,
+  ArrowClockwiseFilled,
 } from "@fluentui/react-icons";
 
 import { FlechaDerecha, FlechaIzquierda } from "../../utils/IconsSVG";
 
 const AgregarIcon = bundleIcon(AddFilled, AddRegular);
 const EliminarIcon = bundleIcon(DeleteFilled, DeleteRegular);
+const EditarIcon = bundleIcon(EditFilled, EditRegular);
 const DetalleIcon = bundleIcon(AppsListFilled, AppsListRegular);
-
+const RefrescarIcon = bundleIcon(ArrowClockwiseFilled, ArrowClockwiseRegular);
 export const useIconsCatalogo = (size: number) => {
   const iconos: IICON[] = [
-    {
-      text: "Eliminar",
-      icon: <EliminarIcon fontSize={size} />,
-    },
     {
       text: "Agregar",
       icon: <AgregarIcon fontSize={size} />,
     },
     {
-      text: "Menu",
-      icon: <GridDots24Filled fontSize={size} />,
+      text: "Editar",
+      icon: <EditarIcon fontSize={size} />,
+    },
+    {
+      text: "Eliminar",
+      icon: <EliminarIcon fontSize={size} />,
     },
     {
       text: "Refrescar",
-      icon: <ArrowClockwiseRegular fontSize={size} />,
+      icon: <RefrescarIcon fontSize={size} />,
+    },
+    {
+      text: "Detalle",
+      icon: <DetalleIcon fontSize={size} />,
+    },
+    {
+      text: "Menu",
+      icon: <GridDots24Filled fontSize={size} />,
     },
     {
       text: "Filtro",
@@ -49,10 +61,6 @@ export const useIconsCatalogo = (size: number) => {
     {
       text: "SalirLogin",
       icon: <ArrowExitRegular fontSize={size} />,
-    },
-    {
-      text: "Detalle",
-      icon: <DetalleIcon fontSize={size} />,
     },
     {
       text: "Descargar",

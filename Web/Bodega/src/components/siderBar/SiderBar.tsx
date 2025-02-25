@@ -34,6 +34,9 @@ export const SiderBar = (props: ISiderBar) => {
   const navigate = useNavigate();
   const { Icon } = useIconsCatalogo(24);
   const [openItems, setOpenItems] = useState(["0"]);
+  const [optionselected, setOptionSelected] = useState<string | unknown>(
+    "productos"
+  );
   const [isOpenIcons, { setTrue: openIcons, setFalse: dismissIcons }] =
     useBoolean(true);
 
@@ -47,6 +50,7 @@ export const SiderBar = (props: ISiderBar) => {
 
   const selectTab = (event: SelectTabEvent, data: SelectTabData) => {
     if (event !== undefined) {
+      setOptionSelected(data.value ?? "");
       navigate(`${data.value}`);
     }
   };
@@ -92,7 +96,6 @@ export const SiderBar = (props: ISiderBar) => {
                 style={{
                   padding: "0px",
                   border: "0px",
-                  
                 }}
               >
                 <Accordion
@@ -100,18 +103,19 @@ export const SiderBar = (props: ISiderBar) => {
                   onToggle={handleToggle}
                   multiple
                 >
-                  {props.linkNavGroups.map((group, index) => (
-                    <AccordionItem value={index} key={index}>
+                  {props.linkNavGroups.map((group, indexheander) => (
+                    <AccordionItem value={indexheander} key={indexheander}>
                       <AccordionHeader size={"large"}>
                         {group.name}
                       </AccordionHeader>
-                      <AccordionPanel>
-                        <TabList
-                          size="small"
-                          vertical
-                          appearance="subtle"
-                          onTabSelect={selectTab}
-                        >
+                      <TabList
+                        size="small"
+                        vertical
+                        appearance="subtle"
+                        selectedValue={optionselected}
+                        onTabSelect={selectTab}
+                      >
+                        <AccordionPanel>
                           {group.links.map((link, index: number) => (
                             <Tab
                               key={index}
@@ -133,8 +137,8 @@ export const SiderBar = (props: ISiderBar) => {
                               </Label>
                             </Tab>
                           ))}
-                        </TabList>
-                      </AccordionPanel>
+                        </AccordionPanel>
+                      </TabList>
                     </AccordionItem>
                   ))}
                 </Accordion>
@@ -179,7 +183,6 @@ export const SiderBar = (props: ISiderBar) => {
                           button={{ style: { padding: "0px" } }}
                         ></AccordionHeader>
                       </Tooltip>
-
                       <AccordionPanel style={{ margin: "0px" }}>
                         <TabList
                           size="small"

@@ -22,7 +22,7 @@ export const Verified = () => {
       name: "Secciones",
       links: [
         {
-          key: "1",
+          key: "2",
           name: "Listado Secciones",
           url: "secciones",
           icon: "DocumentOnePageAdd20Regular",
@@ -33,7 +33,7 @@ export const Verified = () => {
       name: "Categorias",
       links: [
         {
-          key: "1",
+          key: "3",
           name: "Listado Categorias",
           url: "categorias",
           icon: "DocumentOnePageAdd20Regular",
@@ -44,7 +44,7 @@ export const Verified = () => {
       name: "Proveedores",
       links: [
         {
-          key: "1",
+          key: "4",
           name: "Listado Proveedores",
           url: "proveedores",
           icon: "DocumentOnePageAdd20Regular",
