@@ -7,14 +7,25 @@ import { PanelAgregarProveedor } from "./PanelAgregarProveedor";
 import { useBoolean } from "@fluentui/react-hooks";
 import { useListarProveedor } from "../hooks/useListarProveedor";
 import { Button } from "@fluentui/react-components";
+import { PanelListarProductoProveedor } from "./PanelListarProductoProveedor";
+import { useState } from "react";
 
 const Proveedores = () => {
   const { Icon } = useIconsCatalogo(24);
   const { items, getListarCategorias } = useListarProveedor();
-
+  const [proveedorId, setProveedorId] = useState<string>("");
+  const [nameProveedorSelected, setNameProveedorSelected] =
+    useState<string>("");
   const [isOpenAdd, { setTrue: openPanelAdd, setFalse: onDismissPanel }] =
     useBoolean(false);
-
+  const [
+    isOpenListarProductos,
+    {
+      setTrue: openPanelListarProductos,
+      setFalse: onDismissPanelListarProductos,
+    },
+  ] = useBoolean(false);
+  
   const columnas: IColumn[] = [
     { key: 1, name: "RUC", fieldName: "ruc", minWidth: 20 },
     {
@@ -42,7 +53,11 @@ const Proveedores = () => {
           <Button
             key={index}
             appearance="transparent"
-            onClick={() => {}}
+            onClick={() => {
+              openPanelListarProductos();
+              setProveedorId(item.proveedorId);
+              setNameProveedorSelected(item.nombreContactor);
+            }}
             style={{ fontSize: "12px", fontWeight: "normal" }}
             icon={Icon("Detalle")}
           ></Button>
@@ -75,6 +90,12 @@ const Proveedores = () => {
         data={items}
         isLoading={false}
         leftButtons={LeftBottom}
+      />
+      <PanelListarProductoProveedor
+        isOpen={isOpenListarProductos}
+        onDismiss={onDismissPanelListarProductos}
+        nameProducto={nameProveedorSelected}
+        proveedorId={proveedorId}
       />
       <PanelAgregarProveedor isOpen={isOpenAdd} onDismiss={onDismissPanel} />
     </>

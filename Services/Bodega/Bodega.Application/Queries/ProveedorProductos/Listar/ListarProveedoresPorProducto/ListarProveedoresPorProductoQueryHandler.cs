@@ -27,16 +27,16 @@ namespace Bodega.Application.Queries.ProveedorProductos.Listar.ListarProveedores
                 var proveedores = await _proveedorProductoRepository.GetAsync(fAll, null, include);
 
                 var response = (from x in proveedores
-                                                                  select new ListarProveedoresPorProductoDTO
-                                                                  {
-                                                                      ProveedorId = x.ProveedorId,
-                                                                      Direccion = x.Proveedor.Direccion,
-                                                                      Email = x.Proveedor.Email,
-                                                                      NombreContactor = x.Proveedor.NombreContacto,
-                                                                      Ruc = x.Proveedor.Ruc,
-                                                                      Telefono = x.Proveedor.Telefono,
-                                                                      TelefonoContacto = x.Proveedor.TelefonoContacto
-                                                                  }).ToList();
+                                select new ListarProveedoresPorProductoDTO
+                                {
+                                    ProveedorId = x.ProveedorId,
+                                    Direccion = x.Proveedor.Direccion,
+                                    Email = x.Proveedor.Email,
+                                    NombreContacto = x.Proveedor.NombreContacto,
+                                    Ruc = x.Proveedor.Ruc,
+                                    Telefono = x.Proveedor.Telefono,
+                                    TelefonoContacto = x.Proveedor.TelefonoContacto
+                                }).ToList();
 
                 return response;
             }

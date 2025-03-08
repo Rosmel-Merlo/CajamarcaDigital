@@ -5,7 +5,7 @@ namespace Bodega.Application.Queries.ProveedorProductos.Listar.ListarProveedores
     {
         public Guid ProveedorId { get; set; }
         public string Ruc { get; set; }
-        public string NombreContactor { get; set; }
+        public string NombreContacto { get; set; }
         public string TelefonoContacto { get; set; }
         public string Telefono { get; set; }
         public string Email { get; set; }

@@ -1,3 +1,4 @@
+using Bodega.Application.Queries.ProveedorProductos.Listar.ListarProductosPorProveedor;
 using Bodega.Application.Queries.ProveedorProductos.Listar.ListarProveedoresPorProducto;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +13,17 @@ namespace Bodega.Api.Controller
         {
             _mediator = mediator;
         }
-        [HttpGet("ListarProveedoresPorProducto", Name = "Listar proveedor por Producto")] 
+        [HttpGet("ListarProveedoresPorProducto", Name = "Listar proveedor por Producto")]
         public async Task<ActionResult<List<ListarProveedoresPorProductoDTO>>> ListarProveedoresPorProducto([FromQuery] ListarProveedoresPorProductoQuery query)
         {
             var response = await _mediator.Send(query);
             return Ok(response);
         }
-
+        [HttpGet("ListarProductosPorProveedor", Name = "Listar productos por Proveedor")]
+        public async Task<ActionResult<List<ListarProveedoresPorProductoDTO>>> ListarProductosPorProveedor([FromQuery] ListarProductosPorProveedorQuery query)
+        {
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
     }
 }

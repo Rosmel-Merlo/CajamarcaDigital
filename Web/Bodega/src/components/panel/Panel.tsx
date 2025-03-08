@@ -1,15 +1,14 @@
 import {
   Button,
   Divider,
+  Drawer,
   DrawerBody,
   DrawerFooter,
   DrawerHeader,
   DrawerHeaderTitle,
-  OverlayDrawer,
 } from "@fluentui/react-components";
 import { DismissSquareRegular } from "@fluentui/react-icons";
 import { ProgressBarComponent } from "../progressBar/ProgressBarComponent";
-
 interface IPanel {
   isOpen: boolean;
   onDismiss: () => void;
@@ -17,15 +16,18 @@ interface IPanel {
   onRenderHeader?: () => JSX.Element;
   onRenderFooter?: () => JSX.Element;
   children?: any;
-  loading: Boolean;
+  loading?: Boolean;
+  position?: "start" | "end";
+  type?: "inline" | "overlay";
 }
 
 const Panel = (props: IPanel) => {
   return (
     <div>
-      <OverlayDrawer
+      <Drawer
+        type={props.type}
         size={props.size ?? "small"}
-        position="end"
+        position={props.position == undefined ? "end" : props.position}
         open={props.isOpen}
         onOpenChange={props.onDismiss}
       >
@@ -40,7 +42,7 @@ const Panel = (props: IPanel) => {
               />
             }
           >
-            {!props.onRenderHeader ? <>si</> : <>{props.onRenderHeader()}</>}
+            {!props.onRenderHeader ? <></> : <>{props.onRenderHeader()}</>}
           </DrawerHeaderTitle>
           <Divider appearance="brand"></Divider>
         </DrawerHeader>
@@ -56,7 +58,7 @@ const Panel = (props: IPanel) => {
         <DrawerFooter>
           {!props.onRenderFooter ? <>si</> : <>{props.onRenderFooter()}</>}
         </DrawerFooter>
-      </OverlayDrawer>
+      </Drawer>
     </div>
   );
 };

@@ -7,13 +7,27 @@ import PanelAgregarProducto from "./PanelAgregarProducto";
 import { useBoolean } from "@fluentui/react-hooks";
 import { Button } from "@fluentui/react-components";
 import { useListarProductos } from "../hooks/useListarProductos";
+import { PanelListarProveedorPorProducto } from "./PanelListarProveedorPorProducto";
+import { useState } from "react";
+import { DialogComponent } from "../../../components/dialog/DialogComponent";
+import BarcodeScanner from "../../../components/barcodeScanner/BarcodeScanner";
 
 const Productos = () => {
   const { Icon } = useIconsCatalogo(24);
   const { items, getListarProductos } = useListarProductos();
-
+  const [productoId, setProductoId] = useState<string>("");
+  const [nameProductoSelected, setNameProductoSelected] = useState<string>("");
   const [isOpenAdd, { setTrue: openPanelAdd, setFalse: onDismissPanel }] =
     useBoolean(false);
+  const [isOpenMenu, { setTrue: openPanelMenu, setFalse: onDismissPanelMenu }] =
+    useBoolean(false);
+  const [
+    isOpenAddProveedorProducto,
+    {
+      setTrue: openPanelAddProveedorProducto,
+      setFalse: onDismissPanelProveedorProducto,
+    },
+  ] = useBoolean(false);
 
   const columnas: IColumn[] = [
     {
@@ -62,7 +76,11 @@ const Productos = () => {
           <Button
             key={index}
             appearance="transparent"
-            onClick={() => {}}
+            onClick={() => {
+              openPanelAddProveedorProducto();
+              setProductoId(item.productoId);
+              setNameProductoSelected(item.nombre);
+            }}
             style={{ fontSize: "12px", fontWeight: "normal" }}
             icon={Icon("Detalle")}
           ></Button>
@@ -84,6 +102,12 @@ const Productos = () => {
       icon: Icon("Refrescar"),
       onClick: getListarProductos,
     },
+    {
+      text: "Escanner",
+      type: "outline",
+      icon: Icon("Refrescar"),
+      onClick: openPanelMenu,
+    },
   ];
   return (
     <>
@@ -96,6 +120,15 @@ const Productos = () => {
         leftButtons={LeftBottom}
       />
       <PanelAgregarProducto isOpen={isOpenAdd} onDismiss={onDismissPanel} />
+      <PanelListarProveedorPorProducto
+        nameProducto={nameProductoSelected}
+        isOpen={isOpenAddProveedorProducto}
+        onDismiss={onDismissPanelProveedorProducto}
+        productoId={productoId}
+      />
+      <DialogComponent isOpen={isOpenMenu} onDismiss={onDismissPanelMenu}>
+        <BarcodeScanner/>
+      </DialogComponent>
     </>
   );
 };

@@ -43,7 +43,7 @@ export const crearProductoValidationRules: Record<
   codigo: {
     required: true,
     minLength: 5,
-    maxLength: 10,
+    maxLength: 15,
     custom: (value: string) => {
       if (!/^[A-Za-z0-9]+$/.test(value)) {
         return "El código solo puede contener letras y números.";

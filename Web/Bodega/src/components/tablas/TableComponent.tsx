@@ -15,6 +15,8 @@ import { useStyles } from "../../styles/LabelFontSyles";
 import { IButtonGroup } from "../../interfaces/IButtonsGroup/IButtonGroup";
 import { ChangeEvent, Fragment } from "react";
 import { ButtonsGroupTabla } from "../buttonsGroup/ButtonsGroupTabla";
+import { PanelMenu } from "../../routes/PanelMenu";
+import { useBoolean } from "@fluentui/react-hooks";
 
 interface ITableComponent {
   isSearch?: boolean;

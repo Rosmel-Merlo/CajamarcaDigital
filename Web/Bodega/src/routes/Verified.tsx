@@ -4,8 +4,11 @@ import { IButtonGroup } from "../interfaces/IButtonsGroup/IButtonGroup";
 import { useIconsCatalogo } from "../hooks/iconCatalog/useIconsCatalogo";
 import { SiderBar } from "../components/siderBar/SiderBar";
 import { Outlet } from "react-router-dom";
+import { PanelMenu } from "./PanelMenu";
+import { useBoolean } from "@fluentui/react-hooks";
 export const Verified = () => {
   const { Icon } = useIconsCatalogo(100);
+ 
   const linkGroups: TreeMenu[] = [
     {
       name: "Productos",
@@ -55,9 +58,9 @@ export const Verified = () => {
 
   const _leftButton: IButtonGroup[] = [
     {
-      text: "Actualizar",
+      text: "Menu",
       icon: Icon("Menu"),
-      //  onClick: postListarTablaControlAcceso,
+      //onClick: openPanelMenu,
     },
   ];
   const _rightButton: IButtonGroup[] = [
