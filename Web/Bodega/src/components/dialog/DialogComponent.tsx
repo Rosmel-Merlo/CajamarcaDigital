@@ -9,7 +9,9 @@ import {
   DialogTrigger,
 } from "@fluentui/react-components";
 interface IDialogComponent {
+  title?: string;
   isOpen: boolean;
+  onRenderFooter?: JSX.Element;
   onDismiss: () => void;
   children?: JSX.Element;
 }
@@ -19,13 +21,14 @@ export const DialogComponent = (props: IDialogComponent) => {
     <Dialog open={props.isOpen} onOpenChange={props.onDismiss}>
       <DialogSurface>
         <DialogBody>
-          <DialogTitle>Dialog title</DialogTitle>
+          <DialogTitle>{props.title}</DialogTitle>
           <DialogContent>{props.children}</DialogContent>
           <DialogActions>
-            <Button appearance="primary">Do Something</Button>
+            {props.onRenderFooter}
+            {/*   <Button appearance="primary">Do Something</Button>
             <DialogTrigger disableButtonEnhancement>
               <Button appearance="secondary">Close</Button>
-            </DialogTrigger>
+            </DialogTrigger> */}
           </DialogActions>
         </DialogBody>
       </DialogSurface>

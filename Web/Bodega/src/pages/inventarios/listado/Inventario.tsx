@@ -1,17 +1,11 @@
-import { TableComponent } from "../../../components/tablas/TableComponent";
-import { IColumn } from "../../../interfaces/ITableComponent/ITableComponent";
 import { CabeceraComponent } from "../../../components/tablas/cabeceras/CabeceraComponent";
-import { IButtonGroup } from "../../../interfaces/IButtonsGroup/IButtonGroup";
+import { TableComponent } from "../../../components/tablas/TableComponent";
 import { useIconsCatalogo } from "../../../hooks/iconCatalog/useIconsCatalogo";
-import { useBoolean } from "@fluentui/react-hooks";
-import { PanelAgregarCategoria } from "./PanelAgregarCategoria";
-import { useListarCategoria } from "../hooks/useListarCategoria";
+import { IColumn } from "../../../interfaces/ITableComponent/ITableComponent";
+import { IButtonGroup } from "../../../interfaces/IButtonsGroup/IButtonGroup";
 
-const Categorias = () => {
+export const Inventario = () => {
   const { Icon } = useIconsCatalogo(24);
-  const { getListarCategorias, items, loadingTabel } = useListarCategoria();
-  const [isOpenAdd, { setTrue: openPanelAdd, setFalse: onDismissPanel }] =
-    useBoolean(false);
 
   const columnas: IColumn[] = [
     { key: 1, name: "Nombre", fieldName: "nombreCategoria", minWidth: 20 },
@@ -23,30 +17,27 @@ const Categorias = () => {
       text: "Agregar",
       type: "primary",
       icon: Icon("Agregar"),
-      onClick: openPanelAdd,
+      //onClick: openPanelAdd,
     },
     {
       text: "Actualizar",
       type: "outline",
       icon: Icon("Refrescar"),
-      onClick: getListarCategorias,
+      //onClick: getListarCategorias,
     },
   ];
   return (
     <>
       <CabeceraComponent
-        subTitulo="Categorias"
-        titulo="Listado de Categorias"
+        subTitulo="Inventario"
+        titulo="Listado del Inventario"
       />
       <TableComponent
         column={columnas}
-        data={items}
-        isLoading={loadingTabel}
+        data={[]}
+        isLoading={false}
         leftButtons={LeftBottom}
       />
-      <PanelAgregarCategoria isOpen={isOpenAdd} onDismiss={onDismissPanel} />
     </>
   );
 };
-
-export default Categorias;

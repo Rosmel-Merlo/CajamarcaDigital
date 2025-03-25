@@ -12,7 +12,7 @@ import { useState } from "react";
 
 const Proveedores = () => {
   const { Icon } = useIconsCatalogo(24);
-  const { items, getListarCategorias } = useListarProveedor();
+  const { items, getListarCategorias, loadingTabel } = useListarProveedor();
   const [proveedorId, setProveedorId] = useState<string>("");
   const [nameProveedorSelected, setNameProveedorSelected] =
     useState<string>("");
@@ -25,7 +25,7 @@ const Proveedores = () => {
       setFalse: onDismissPanelListarProductos,
     },
   ] = useBoolean(false);
-  
+
   const columnas: IColumn[] = [
     { key: 1, name: "RUC", fieldName: "ruc", minWidth: 20 },
     {
@@ -88,7 +88,7 @@ const Proveedores = () => {
       <TableComponent
         column={columnas}
         data={items}
-        isLoading={false}
+        isLoading={loadingTabel}
         leftButtons={LeftBottom}
       />
       <PanelListarProductoProveedor

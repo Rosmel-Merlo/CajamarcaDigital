@@ -28,7 +28,7 @@ namespace Common.Infrastructure.Repositories
         public async Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, List<Expression<Func<T, object>>> includes = null, bool disableTracking = true)
         {
             IQueryable<T> query = _dbContext.Set<T>();
-            
+
             if (disableTracking) query = query.AsNoTracking();
 
             if (includes != null) query = includes.Aggregate(query, (current, include) => current.Include(include));
@@ -39,6 +39,15 @@ namespace Common.Infrastructure.Repositories
                 return await orderBy(query).ToListAsync();
 
             return await query.ToListAsync();
+        }
+
+        public async Task<T?> RemoveAsync(Guid Id)
+        {
+            var entity = await _dbContext.Set<T>().FindAsync(Id);
+            if (entity == null) return null;
+            _dbContext.Set<T>().Remove(entity);
+            await _dbContext.SaveChangesAsync();
+            return entity;
         }
     }
 }

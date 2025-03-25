@@ -20,7 +20,8 @@ export const PanelListarProductoProveedor = (
 ) => {
   const { Icon } = useIconsCatalogo(24);
 
-  const { items, getListarProductoProveedor } = useListarProductoProveedor();
+  const { items, getListarProductoProveedor, loadingTabel } =
+    useListarProductoProveedor();
   const renderHeader = useMemo(
     () => (
       <HeaderPanel
@@ -118,12 +119,12 @@ export const PanelListarProductoProveedor = (
         size="large"
         onRenderHeader={() => renderHeader}
         onRenderFooter={() => renderFooter}
-        loading={false}
+        loading={loadingTabel}
       >
         <TableComponent
           column={columnas}
           data={items}
-          isLoading={false}
+          isLoading={loadingTabel}
           leftButtons={LeftBottom}
         />
       </Panel>

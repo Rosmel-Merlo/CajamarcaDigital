@@ -16,6 +16,10 @@ export const useAgregarSecciones = () => {
 
   const [loading, { setTrue: LoadingTrue, setFalse: LoadingFalse }] =
     useBoolean(false);
+  const [
+    loadingAgregar,
+    { setTrue: loadingAgregarTrue, setFalse: loadingAgregarFalse },
+  ] = useBoolean(false);
 
   const onChangeCrearSecciones = (
     ev: ChangeEvent<HTMLInputElement>,
@@ -52,6 +56,8 @@ export const useAgregarSecciones = () => {
       EndPointsSeccion.postAgregarSeccion(payload).then((res) => {
         if (res.status === 200) {
           console.log("Producto Creado");
+          clearPayload();
+          loadingAgregarTrue();
         }
         LoadingFalse();
       });
@@ -65,5 +71,7 @@ export const useAgregarSecciones = () => {
     payload,
     errors,
     loading,
+    loadingAgregar,
+    loadingAgregarFalse
   };
 };

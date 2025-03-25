@@ -8,18 +8,20 @@ import { useBoolean } from "@fluentui/react-hooks";
 import { Button } from "@fluentui/react-components";
 import { useListarProductos } from "../hooks/useListarProductos";
 import { PanelListarProveedorPorProducto } from "./PanelListarProveedorPorProducto";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DialogComponent } from "../../../components/dialog/DialogComponent";
 import BarcodeScanner from "../../../components/barcodeScanner/BarcodeScanner";
+import { Exception, Result } from "@zxing/library";
 
 const Productos = () => {
   const { Icon } = useIconsCatalogo(24);
-  const { items, getListarProductos } = useListarProductos();
+  const { items, getListarProductos, loadingTabel } = useListarProductos();
   const [productoId, setProductoId] = useState<string>("");
+  const [barCode, setBarcode] = useState<string>("");
   const [nameProductoSelected, setNameProductoSelected] = useState<string>("");
   const [isOpenAdd, { setTrue: openPanelAdd, setFalse: onDismissPanel }] =
     useBoolean(false);
-  const [isOpenMenu, { setTrue: openPanelMenu, setFalse: onDismissPanelMenu }] =
+  const [isOpenScanner, { setTrue: openScanner, setFalse: onDismissScanner }] =
     useBoolean(false);
   const [
     isOpenAddProveedorProducto,
@@ -34,6 +36,12 @@ const Productos = () => {
       key: 2,
       name: "Nombre Producto",
       fieldName: "nombre",
+      minWidth: 20,
+    },
+    {
+      key: 7,
+      name: "Codigo Barras",
+      fieldName: "codigo",
       minWidth: 20,
     },
     {
@@ -60,12 +68,7 @@ const Productos = () => {
       fieldName: "stockMinimo",
       minWidth: 20,
     },
-    {
-      key: 7,
-      name: "Codigo",
-      fieldName: "codigo",
-      minWidth: 20,
-    },
+
     {
       key: 8,
       name: "Proveedores",
@@ -105,18 +108,28 @@ const Productos = () => {
     {
       text: "Escanner",
       type: "outline",
-      icon: Icon("Refrescar"),
-      onClick: openPanelMenu,
+      icon: Icon("CodeBar"),
+      onClick: openScanner,
     },
   ];
+
+  const onChangeScanner = (result: Result, error?: Exception) => {
+    if (result) {
+      setBarcode(result.getText());
+    }
+  };
+  useEffect(() => {
+    if (barCode !== "") {
+      onDismissScanner();
+    }
+  }, [barCode]);
   return (
     <>
       <CabeceraComponent subTitulo="Productos" titulo="Listado de Productos" />
-
       <TableComponent
         column={columnas}
         data={items}
-        isLoading={false}
+        isLoading={loadingTabel}
         leftButtons={LeftBottom}
       />
       <PanelAgregarProducto isOpen={isOpenAdd} onDismiss={onDismissPanel} />
@@ -126,8 +139,12 @@ const Productos = () => {
         onDismiss={onDismissPanelProveedorProducto}
         productoId={productoId}
       />
-      <DialogComponent isOpen={isOpenMenu} onDismiss={onDismissPanelMenu}>
-        <BarcodeScanner/>
+      <DialogComponent
+        title="Scanner"
+        isOpen={isOpenScanner}
+        onDismiss={onDismissScanner}
+      >
+        <BarcodeScanner onchange={onChangeScanner} />
       </DialogComponent>
     </>
   );

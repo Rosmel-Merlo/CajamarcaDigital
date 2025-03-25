@@ -1,10 +1,10 @@
-import Panel from "../../../components/panel/Panel";
 import InputComponent from "../../../components/input/InputComponent";
 import HeaderPanel from "../../../components/panel/HeaderPanel";
 import { useMemo } from "react";
 import { Button } from "@fluentui/react-components";
 import { useIconsCatalogo } from "../../../hooks/iconCatalog/useIconsCatalogo";
 import { useAgregarSecciones } from "../hooks/useAgregarSecciones";
+import PanelAgregar from "../../../components/panel/PanelAgregar";
 
 interface IPanelAgregarSeccion {
   isOpen: boolean;
@@ -19,7 +19,10 @@ export const PanelAgregarSeccion = (props: IPanelAgregarSeccion) => {
     onChangeCrearSecciones,
     payload,
     postAgregarSeccion,
+    loadingAgregar,
+    loadingAgregarFalse,
   } = useAgregarSecciones();
+
   const renderHeader = useMemo(
     () => (
       <HeaderPanel
@@ -72,14 +75,34 @@ export const PanelAgregarSeccion = (props: IPanelAgregarSeccion) => {
 
   return (
     <>
-      <Panel
+      <PanelAgregar
         isOpen={props.isOpen}
         onDismiss={props.onDismiss}
         size="medium"
         onRenderHeader={() => renderHeader}
         onRenderFooter={() => renderFooter}
         loading={loading}
+        loadingAgregar={loadingAgregar}
+        onDismissMessager={loadingAgregarFalse}
       >
+        <div className="cards">
+          <div className="card"></div>
+          <div className="card">
+            <Button
+              disabled={false}
+              key={"left"}
+              onClick={() => {
+                clearPayload();
+              }}
+              style={{ fontSize: "12px", fontWeight: "normal" }}
+              appearance={"outline"}
+              icon={Icon("Limpiar")}
+            >
+              {" "}
+              Limpiar
+            </Button>
+          </div>
+        </div>
         <div className="cards">
           <div className="card">
             <InputComponent
@@ -98,7 +121,7 @@ export const PanelAgregarSeccion = (props: IPanelAgregarSeccion) => {
             />
           </div>
         </div>
-      </Panel>
+      </PanelAgregar>
     </>
   );
 };

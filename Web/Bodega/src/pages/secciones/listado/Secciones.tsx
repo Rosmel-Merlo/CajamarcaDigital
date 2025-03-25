@@ -6,13 +6,18 @@ import { useIconsCatalogo } from "../../../hooks/iconCatalog/useIconsCatalogo";
 import { PanelAgregarSeccion } from "./PanelAgregarSeccion";
 import { useBoolean } from "@fluentui/react-hooks";
 import { useListarSecciones } from "../hooks/useListarSecciones";
+import { Button } from "@fluentui/react-components";
+import { useEliminarSecciones } from "../hooks/useEliminarSecciones";
 
 const Secciones = () => {
-  const { items, getListarCategorias } = useListarSecciones();
+  const { items, getListarCategorias, loadingTabel } = useListarSecciones();
   const { Icon } = useIconsCatalogo(24);
 
   const [isOpenAdd, { setTrue: openPanelAdd, setFalse: onDismissPanel }] =
     useBoolean(false);
+  const { deleteSeccion } = useEliminarSecciones({
+    listarSecciones: getListarCategorias,
+  });
 
   const columnas: IColumn[] = [
     {
@@ -26,6 +31,28 @@ const Secciones = () => {
       name: "Description",
       fieldName: "descripcion",
       minWidth: 20,
+    },
+    {
+      key: 4,
+      name: "Opciones",
+      fieldName: "",
+      minWidth: 20,
+      onRender(item, index) {
+        return (
+          <>
+            <Button
+              key={index}
+              appearance="transparent"
+              onClick={() => {
+                deleteSeccion(item.seccionId)
+                console.log(item);
+              }}
+              style={{ fontSize: "12px", fontWeight: "normal" }}
+              icon={Icon("Eliminar")}
+            />
+          </>
+        );
+      },
     },
   ];
   const LeftBottom: IButtonGroup[] = [
@@ -48,7 +75,7 @@ const Secciones = () => {
       <TableComponent
         column={columnas}
         data={items}
-        isLoading={false}
+        isLoading={loadingTabel}
         leftButtons={LeftBottom}
       />
       <PanelAgregarSeccion isOpen={isOpenAdd} onDismiss={onDismissPanel} />

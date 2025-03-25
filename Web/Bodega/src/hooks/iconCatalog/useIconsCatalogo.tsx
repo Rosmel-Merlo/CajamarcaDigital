@@ -21,6 +21,10 @@ import {
   ArrowClockwiseFilled,
   TextBulletListSquareFilled,
   TextBulletListSquareRegular,
+  BarcodeScannerFilled,
+  BarcodeScannerRegular,
+  BroomFilled,
+  BroomRegular,
 } from "@fluentui/react-icons";
 
 import { FlechaDerecha, FlechaIzquierda } from "../../utils/IconsSVG";
@@ -30,10 +34,12 @@ const EliminarIcon = bundleIcon(DeleteFilled, DeleteRegular);
 const EditarIcon = bundleIcon(EditFilled, EditRegular);
 const DetalleIcon = bundleIcon(AppsListFilled, AppsListRegular);
 const RefrescarIcon = bundleIcon(ArrowClockwiseFilled, ArrowClockwiseRegular);
+const Limpiar = bundleIcon(BroomFilled, BroomRegular);
 const ListarIcon = bundleIcon(
   TextBulletListSquareFilled,
   TextBulletListSquareRegular
 );
+const CodeBarIcon = bundleIcon(BarcodeScannerFilled, BarcodeScannerRegular);
 export const useIconsCatalogo = (size: number) => {
   const iconos: IICON[] = [
     {
@@ -61,6 +67,10 @@ export const useIconsCatalogo = (size: number) => {
       icon: <DetalleIcon fontSize={size} />,
     },
     {
+      text: "CodeBar",
+      icon: <CodeBarIcon fontSize={size} />,
+    },
+    {
       text: "Menu",
       icon: <GridDots24Filled fontSize={size} />,
     },
@@ -75,6 +85,10 @@ export const useIconsCatalogo = (size: number) => {
     {
       text: "Descargar",
       icon: <ArrowDownloadRegular fontSize={size} />,
+    },
+    {
+      text: "Limpiar",
+      icon: <Limpiar fontSize={size} />,
     },
     {
       text: "Limpiar Filtro",
@@ -118,7 +132,9 @@ export const useIconsCatalogo = (size: number) => {
     | "Filtro"
     | "SalirLogin"
     | "Detalle"
+    | "CodeBar"
     | "Limpiar Filtro"
+    | "Limpiar"
     | "Ingresar"
     | "Reportes"
     | "Descargar"

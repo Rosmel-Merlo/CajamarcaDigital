@@ -4,12 +4,16 @@ import { IListarProveedor } from "../../../api/bodega/interfaces/Proveedor/IList
 
 export const useListarProveedor = () => {
   const [items, setItems] = useState<IListarProveedor[]>([]);
+  const [loadingTabel, setLoadingTable] = useState<boolean>(false);
 
   const getListarCategorias = () => {
+    setLoadingTable(true);
     EndPointsProveedor.getListarProveedor().then((res) => {
       if (res.status === 200) {
+        setLoadingTable(false);
         setItems(res.data);
       }
+      setLoadingTable(false);
     });
   };
 
@@ -17,5 +21,5 @@ export const useListarProveedor = () => {
     getListarCategorias();
   }, []);
 
-  return { items, getListarCategorias };
+  return { items, getListarCategorias, loadingTabel };
 };

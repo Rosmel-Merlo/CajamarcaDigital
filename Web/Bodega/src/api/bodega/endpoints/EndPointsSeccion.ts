@@ -9,6 +9,15 @@ const postAgregarSeccion = (payload: ICrearSeccion) => {
   return axiosBodega.post("Seccion/CrearSeccion", payload);
 };
 
-const EndPointsSeccion = { getListarSeccion, postAgregarSeccion };
+const deleteSeccion = (Id: string) => {
+  var payload = { seccionId: Id };
+  return axiosBodega.delete("Seccion/EliminarSeccion", { data: payload });
+};
+
+const EndPointsSeccion = {
+  getListarSeccion,
+  postAgregarSeccion,
+  deleteSeccion,
+};
 
 export default EndPointsSeccion;

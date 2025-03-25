@@ -1,5 +1,6 @@
 
 using Bodega.Application.Command.Seccion.Crear;
+using Bodega.Application.Command.Seccion.Eliminar;
 using Bodega.Application.Queries.Secciones.ListarSecciones;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,11 @@ namespace Bodega.Api.Controller
             var response = await _mediator.Send(command);
             return Ok(response);
         }
-
+        [HttpDelete("EliminarSeccion")]
+        public async Task<ActionResult<string>> EliminarProveedor([FromBody] EliminarSeccionCommand command)
+        {
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
     }
 }
