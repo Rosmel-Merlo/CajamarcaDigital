@@ -1,6 +1,7 @@
 
 using Bodega.Application.Command.Seccion.Crear;
 using Bodega.Application.Command.Seccion.Eliminar;
+using Bodega.Application.Queries.Secciones.ListarComboBoxSecciones;
 using Bodega.Application.Queries.Secciones.ListarSecciones;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,13 @@ namespace Bodega.Api.Controller
             _mediator = mediator;
         }
         [HttpGet("ListarSecciones")]
-        public async Task<ActionResult<string>> ListarSecciones([FromQuery] ListarSeccionesQuery query)
+        public async Task<ActionResult<List<ListarSeccionesDTO>>> ListarSecciones([FromQuery] ListarSeccionesQuery query)
+        {
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
+        [HttpGet("ListarComboBoxSecciones")]
+        public async Task<ActionResult<List<ListarComboBoxSeccionesDTO>>> ListarComboBoxSecciones([FromQuery] ListarComboBoxSeccionesQuery query)
         {
             var response = await _mediator.Send(query);
             return Ok(response);

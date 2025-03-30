@@ -4,6 +4,9 @@ import { ICrearSeccion } from "../interfaces/Seccion/ICrearSeccion";
 const getListarSeccion = () => {
   return axiosBodega.get("Seccion/ListarSecciones");
 };
+const getListarComboBoxSecciones = () => {
+  return axiosBodega.get<IComboBox[]>("Seccion/ListarComboBoxSecciones");
+};
 
 const postAgregarSeccion = (payload: ICrearSeccion) => {
   return axiosBodega.post("Seccion/CrearSeccion", payload);
@@ -16,6 +19,7 @@ const deleteSeccion = (Id: string) => {
 
 const EndPointsSeccion = {
   getListarSeccion,
+  getListarComboBoxSecciones,
   postAgregarSeccion,
   deleteSeccion,
 };

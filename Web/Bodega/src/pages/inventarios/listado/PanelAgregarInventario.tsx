@@ -4,12 +4,20 @@ import { Button } from "@fluentui/react-components";
 import { useIconsCatalogo } from "../../../hooks/iconCatalog/useIconsCatalogo";
 import Panel from "../../../components/panel/Panel";
 import InputComponent from "../../../components/input/InputComponent";
+import { useListarComboProducto } from "../../productos/hooks/useListarComboProducto";
+import { ComboBoxComponent } from "../../../components/comboBox/ComboBoxComponent";
+import { useListarComboSecciones } from "../../secciones/hooks/useListarComboSecciones";
+import { useCrearInventario } from "../hooks/useCrearInventario";
 
 interface IPanelAgregarInventario {
   isOpen: boolean;
   onDismiss: () => void;
 }
 export const PanelAgregarInventario = (props: IPanelAgregarInventario) => {
+  const { dataComboProducto } = useListarComboProducto();
+  const { dataComboSecciones } = useListarComboSecciones();
+  const { dataCrearInventario,PostCrearInventario, onChangeCombo, onChangeInpunt } =
+    useCrearInventario();
   const { Icon } = useIconsCatalogo(24);
   const renderHeader = useMemo(() => {
     return (
@@ -44,7 +52,7 @@ export const PanelAgregarInventario = (props: IPanelAgregarInventario) => {
         <div>
           <Button
             key={"right2"}
-            //onClick={postAgregarProductos}
+            onClick={PostCrearInventario}
             style={{ fontSize: "12px", fontWeight: "normal" }}
             appearance={"primary"}
             icon={Icon("Agregar")}
@@ -54,7 +62,7 @@ export const PanelAgregarInventario = (props: IPanelAgregarInventario) => {
         </div>
       </div>
     ),
-    []
+    [PostCrearInventario]
   );
   return (
     <>
@@ -66,18 +74,33 @@ export const PanelAgregarInventario = (props: IPanelAgregarInventario) => {
         onRenderFooter={() => renderFooter}
         loading={false}
       >
+        <pre>{JSON.stringify(dataCrearInventario, null, 2)}</pre>
         <div className="cards">
           <div className="card">
-            <InputComponent text={"Nombre"} />
-          </div>
-          <div className="card">
-            <InputComponent
-              text={"Descripción"}
-              // onChange={(e, d) => onChangeCrearProductos(e, d, "descripcion")}
+            <ComboBoxComponent
+              onChange={(event, data) =>
+                onChangeCombo(event, data, "productoCombo")
+              }
+              text="Producto"
+              options={dataComboProducto}
             />
           </div>
           <div className="card">
-            <InputComponent type="number" text={"Precio Compra"} />
+            <ComboBoxComponent
+              onChange={(event, data) =>
+                onChangeCombo(event, data, "seccionCombo")
+              }
+              text="Secciones"
+              options={dataComboSecciones}
+            />
+          </div>
+          <div className="card">
+            <InputComponent
+              type="number"
+              value={dataCrearInventario.cantidad}
+              onChange={onChangeInpunt}
+              text={"Precio Compra"}
+            />
           </div>
         </div>
       </Panel>

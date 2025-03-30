@@ -10,7 +10,7 @@ import { useBoolean } from "@fluentui/react-hooks";
 
 export const Inventario = () => {
   const { Icon } = useIconsCatalogo(24);
-  const { items, loadingTable } = useListarInventario();
+  const { items, loadingTable, getListarInventario} = useListarInventario();
   const [isOpenAdd, { setTrue: openPanelAdd, setFalse: onDismissPanel }] =
     useBoolean(false);
   const columnas: IColumn[] = [
@@ -56,7 +56,7 @@ export const Inventario = () => {
       text: "Actualizar",
       type: "outline",
       icon: Icon("Refrescar"),
-      //onClick: getListarCategorias,
+      onClick: getListarInventario,
     },
   ];
   return (
