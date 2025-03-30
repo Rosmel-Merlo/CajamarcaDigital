@@ -1,5 +1,6 @@
 
 
+using Bodega.Application.Command.Inventarios.Actualizar;
 using Bodega.Application.Command.Inventarios.Crear;
 using Bodega.Application.Queries.Inventarios.ListarInventarios;
 using MediatR;
@@ -24,6 +25,12 @@ namespace Bodega.Api.Controller
         }
         [HttpPost("CrearInventario")]
         public async Task<ActionResult<string>> CrearProducto([FromBody] CrearInventarioCommand command)
+        {
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
+        [HttpPut("ActualizarInventario")]
+        public async Task<ActionResult<string>> ActualizarInventario([FromBody] ActualizarInventarioCommand command)
         {
             var response = await _mediator.Send(command);
             return Ok(response);

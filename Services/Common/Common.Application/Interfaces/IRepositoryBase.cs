@@ -12,7 +12,11 @@ namespace Common.Application.Interfaces
                                      Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
                                      List<Expression<Func<T, object>>>? includes = null,
                                      bool disableTracking = true);
+        Task<T?> GetSingleAsync(Expression<Func<T, bool>> predicate = null,
+                                 List<Expression<Func<T, object>>>? includes = null,
+                                 bool disableTracking = true);
         Task<T> AddAsync(T entity);
+        Task<T> UpdateAsync(T entity);
         Task<T?> RemoveAsync(Guid Id);
     }
 }

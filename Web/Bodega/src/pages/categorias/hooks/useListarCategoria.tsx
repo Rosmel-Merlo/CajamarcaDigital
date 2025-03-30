@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import EndPointsCategoria from "../../../api/bodega/endpoints/EndPointsCategoria";
 
 export const useListarCategoria = () => {
