@@ -6,7 +6,7 @@ import {
   useId,
 } from "@fluentui/react-components";
 import "./InputComponent.css";
-import { ChangeEvent } from "react";
+import { ChangeEvent, forwardRef } from "react";
 
 interface IInputComponent {
   text: string;
@@ -16,7 +16,7 @@ interface IInputComponent {
     data: InputOnChangeData
   ) => void;
   value?: string | number;
-  Icon?: Slot<"span">;
+  contentBefore?: Slot<"span">;
   type?:
     | "text"
     | "email"
@@ -32,28 +32,30 @@ interface IInputComponent {
     | "week";
 }
 
-const InputComponent = (props: IInputComponent) => {
-  const inputId = useId("input");
-  const errorId = useId("error-message");
+const InputComponent = forwardRef<HTMLInputElement, IInputComponent>(
+  (props, ref) => {
+    const inputId = useId("input");
+    const errorId = useId("error-message");
 
-  const hasError = Boolean(props.error && props.error.trim().length > 0);
-  return (
-    <Field
-      label={props.text}
-      validationState={props.error ? "error" : "none"}
-      validationMessage={props.error}
-    >
-      <Input
-        id={inputId}
-        aria-invalid={hasError}
-        aria-describedby={hasError ? errorId : undefined}
-        onChange={props.onChange}
-        value={props.value == undefined ? "" : props.value.toString()}
-        contentBefore={props.Icon}
-        type={props.type}
-      />
-    </Field>
-  );
-};
-
+    const hasError = Boolean(props.error && props.error.trim().length > 0);
+    return (
+      <Field
+        label={props.text}
+        validationState={props.error ? "error" : "none"}
+        validationMessage={props.error}
+      >
+        <Input
+          id={inputId}
+          ref={ref}
+          aria-invalid={hasError}
+          aria-describedby={hasError ? errorId : undefined}
+          onChange={props.onChange}
+          value={props.value == undefined ? "" : props.value.toString()}
+          contentBefore={props.contentBefore}
+          type={props.type}
+        />
+      </Field>
+    );
+  }
+);
 export default InputComponent;

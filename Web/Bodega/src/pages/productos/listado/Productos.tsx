@@ -12,15 +12,22 @@ import { useEffect, useState } from "react";
 import { DialogComponent } from "../../../components/dialog/DialogComponent";
 import BarcodeScanner from "../../../components/barcodeScanner/BarcodeScanner";
 import { Exception, Result } from "@zxing/library";
+import { PanelActualizarProducto } from "./PanelActualizarProducto";
+import { IListarProducto } from "../../../api/bodega/interfaces/Productos/IListarProducto";
 
 const Productos = () => {
   const { Icon } = useIconsCatalogo(24);
   const { items, getListarProductos, loadingTabel } = useListarProductos();
   const [productoId, setProductoId] = useState<string>("");
+  const [itemActualizar, setItemActualizar] = useState<IListarProducto>(null!);
   const [barCode, setBarcode] = useState<string>("");
   const [nameProductoSelected, setNameProductoSelected] = useState<string>("");
   const [isOpenAdd, { setTrue: openPanelAdd, setFalse: onDismissPanel }] =
     useBoolean(false);
+  const [
+    isOpenActualizar,
+    { setTrue: openPanelActualizar, setFalse: onDismissPanelActualizar },
+  ] = useBoolean(false);
   const [isOpenScanner, { setTrue: openScanner, setFalse: onDismissScanner }] =
     useBoolean(false);
   const [
@@ -74,7 +81,7 @@ const Productos = () => {
       name: "Proveedores",
       fieldName: "",
       minWidth: 20,
-      onRender: (item, index) => (
+      onRender: (item: IListarProducto, index) => (
         <>
           <Button
             key={index}
@@ -86,7 +93,17 @@ const Productos = () => {
             }}
             style={{ fontSize: "12px", fontWeight: "normal" }}
             icon={Icon("Detalle")}
-          ></Button>
+          />
+          <Button
+            key={index+"1"}
+            appearance="transparent"
+            onClick={() => {
+              openPanelActualizar();
+              setItemActualizar(item);
+            }}
+            style={{ fontSize: "12px", fontWeight: "normal" }}
+            icon={Icon("Editar")}
+          />
         </>
       ),
     },
@@ -123,6 +140,7 @@ const Productos = () => {
       onDismissScanner();
     }
   }, [barCode]);
+
   return (
     <>
       <CabeceraComponent subTitulo="Productos" titulo="Listado de Productos" />
@@ -138,6 +156,11 @@ const Productos = () => {
         isOpen={isOpenAddProveedorProducto}
         onDismiss={onDismissPanelProveedorProducto}
         productoId={productoId}
+      />
+      <PanelActualizarProducto
+        itemActualizar={itemActualizar}
+        isOpen={isOpenActualizar}
+        onDismiss={onDismissPanelActualizar}
       />
       <DialogComponent
         title="Scanner"

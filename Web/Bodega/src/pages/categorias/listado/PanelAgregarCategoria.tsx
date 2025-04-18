@@ -22,7 +22,7 @@ export const PanelAgregarCategoria = (props: IPanelAgregarCategoria) => {
     () => (
       <HeaderPanel
         titulo="Agregar Categoria"
-        subTitulo="Panel para agregar productos"
+        subTitulo="Panel para agregar Categoria"
       />
     ),
     []

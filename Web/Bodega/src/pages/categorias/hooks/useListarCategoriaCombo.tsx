@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EndPointsCategoria from "../../../api/bodega/endpoints/EndPointsCategoria";
 import { IOptionsComboBox } from "../../../components/comboBox/IComboBox";
 
@@ -13,5 +13,8 @@ export const useListarCategoriaCombo = () => {
       }
     });
   };
+  useEffect(() => {
+    getListarComboCategoria();
+  }, []);
   return { getListarComboCategoria, listarCombo };
 };

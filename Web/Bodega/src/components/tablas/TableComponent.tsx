@@ -77,7 +77,7 @@ export const TableComponent = (props: ITableComponent) => {
                     <Fragment key={column.key}>
                       {column.onRender ? (
                         <TableCellLayout
-                          key={column.key}
+                          key={"column.key"+indexItem}
                           style={{
                             minWidth: column.minWidth,
                             maxWidth: column.maxWidth ?? "auto",

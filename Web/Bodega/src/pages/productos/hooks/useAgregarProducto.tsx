@@ -12,6 +12,7 @@ import {
 import { useValidateform } from "../../../hooks/validationForm/useValidateform";
 import { crearProductoValidationRules } from "../validation/crearProductoValidationRules";
 import { useBoolean } from "@fluentui/react-hooks";
+import { Exception, Result } from "@zxing/library";
 
 export const useAgregarProducto = () => {
   const { validateForm } = useValidateform();
@@ -73,7 +74,11 @@ export const useAgregarProducto = () => {
     setErrors(errors);
     return errors;
   };
-
+ const onChangeScanner = (result: Result, error?: Exception) => {
+    if (result) {
+      setPayload({ ...payload, codigo: result.getText() });
+    }
+  };
   const postAgregarProductos = async () => {
     var errores = await viewErrors();
     if (Object.keys(errores).length === 0) {
@@ -95,5 +100,6 @@ export const useAgregarProducto = () => {
     clearPayload,
     loading,
     onChangeCombo,
+    onChangeScanner
   };
 };

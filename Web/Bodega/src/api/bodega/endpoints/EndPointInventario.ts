@@ -1,9 +1,10 @@
 import { axiosBodega } from "../AxiosBodega";
-import { IActualizarCantidadInventario } from "../interfaces/Inventario/IActualizarCantidadInventario";
+import { IActualizarCantidadInventario } from "../interfaces/Inventario/IActualizarInventario";
 import { ICrearInventario } from "../interfaces/Inventario/ICrearInventario";
+import { IListarInventario } from "../interfaces/Inventario/IListarInventario";
 
 const getListarInventario = () => {
-  return axiosBodega.get("Inventario/ListarInventario");
+  return axiosBodega.get<IListarInventario[]>("Inventario/ListarInventario");
 };
 const putActualizarInventario = (request: IActualizarCantidadInventario) => {
   return axiosBodega.put("Inventario/ActualizarInventario", request);

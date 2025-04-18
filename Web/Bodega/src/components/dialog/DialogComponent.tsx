@@ -1,12 +1,11 @@
 import {
-  Button,
+
   Dialog,
   DialogActions,
   DialogBody,
   DialogContent,
   DialogSurface,
   DialogTitle,
-  DialogTrigger,
 } from "@fluentui/react-components";
 interface IDialogComponent {
   title?: string;
@@ -18,17 +17,14 @@ interface IDialogComponent {
 
 export const DialogComponent = (props: IDialogComponent) => {
   return (
-    <Dialog open={props.isOpen} onOpenChange={props.onDismiss}>
+    <Dialog open={props.isOpen} onOpenChange={props.onDismiss} inertTrapFocus={true}>
       <DialogSurface>
         <DialogBody>
           <DialogTitle>{props.title}</DialogTitle>
           <DialogContent>{props.children}</DialogContent>
           <DialogActions>
             {props.onRenderFooter}
-            {/*   <Button appearance="primary">Do Something</Button>
-            <DialogTrigger disableButtonEnhancement>
-              <Button appearance="secondary">Close</Button>
-            </DialogTrigger> */}
+            
           </DialogActions>
         </DialogBody>
       </DialogSurface>

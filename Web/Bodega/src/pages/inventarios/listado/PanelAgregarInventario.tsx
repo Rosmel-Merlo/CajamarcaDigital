@@ -74,7 +74,6 @@ export const PanelAgregarInventario = (props: IPanelAgregarInventario) => {
         onRenderFooter={() => renderFooter}
         loading={false}
       >
-        <pre>{JSON.stringify(dataCrearInventario, null, 2)}</pre>
         <div className="cards">
           <div className="card">
             <ComboBoxComponent

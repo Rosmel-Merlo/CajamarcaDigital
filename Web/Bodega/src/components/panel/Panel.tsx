@@ -29,7 +29,7 @@ const Panel = (props: IPanel) => {
         size={props.size ?? "small"}
         position={props.position == undefined ? "end" : props.position}
         open={props.isOpen}
-        onOpenChange={props.onDismiss}
+        inertTrapFocus={false}
       >
         <DrawerHeader>
           <DrawerHeaderTitle

@@ -7,12 +7,22 @@ import { useListarInventario } from "../hooks/useListarInventario";
 import { Button } from "@fluentui/react-components";
 import { PanelAgregarInventario } from "./PanelAgregarInventario";
 import { useBoolean } from "@fluentui/react-hooks";
+import { PanelEditarInventario } from "./PanelEditarInventario";
+import { useState } from "react";
+import { IListarInventario } from "../../../api/bodega/interfaces/Inventario/IListarInventario";
 
 export const Inventario = () => {
   const { Icon } = useIconsCatalogo(24);
-  const { items, loadingTable, getListarInventario} = useListarInventario();
+  const { items, loadingTable, getListarInventario } = useListarInventario();
   const [isOpenAdd, { setTrue: openPanelAdd, setFalse: onDismissPanel }] =
     useBoolean(false);
+  const [
+    isOpenEditar,
+    { setTrue: openPanelEditar, setFalse: onDismissPanelEditar },
+  ] = useBoolean(false);
+
+  const [dataEditar, setDataEditar] = useState<IListarInventario>(null!);
+
   const columnas: IColumn[] = [
     { key: 1, name: "Producto", fieldName: "producto", minWidth: 20 },
     { key: 3, name: "Cantidad", fieldName: "cantidad", minWidth: 20 },
@@ -35,7 +45,8 @@ export const Inventario = () => {
               key={index}
               appearance="transparent"
               onClick={() => {
-                console.log(item);
+                openPanelEditar();
+                setDataEditar(item);
               }}
               style={{ fontSize: "12px", fontWeight: "normal" }}
               icon={Icon("Editar")}
@@ -72,6 +83,11 @@ export const Inventario = () => {
         leftButtons={LeftBottom}
       />
       <PanelAgregarInventario isOpen={isOpenAdd} onDismiss={onDismissPanel} />
+      <PanelEditarInventario
+        isOpen={isOpenEditar}
+        onDismiss={onDismissPanelEditar}
+        dataEditar={dataEditar}
+      />
     </>
   );
 };
