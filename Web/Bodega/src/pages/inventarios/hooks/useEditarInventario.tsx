@@ -9,8 +9,11 @@ import { IActualizarInventario } from "../../../api/bodega/interfaces/Inventario
 import { IListarInventario } from "../../../api/bodega/interfaces/Inventario/IListarInventario";
 import { useValidateform } from "../../../hooks/validationForm/useValidateform";
 import { actualizarValidationRules } from "../validation/actualizarValidationRules";
+import { useToastNotify } from "../../../hooks/notification/useToastNotify";
 
 export const useEditarInventario = (props: IListarInventario | undefined) => {
+  const { notify, toasterId } = useToastNotify();
+
   const { validateForm } = useValidateform();
   const [errors, setErrors] = useState<ValidationErrors<IActualizarInventario>>(
     {}
@@ -71,19 +74,30 @@ export const useEditarInventario = (props: IListarInventario | undefined) => {
   };
 
   const putEditarInventario = async () => {
-    var errores = await viewErrors();
+    notify({
+      title: "Objeto Editado Correctamente",
+      position: "top-end",
+      intent: "success",
+      subtitleBody: <div>esto es una prueba</div>,
+    });
+   /*  var errores = await viewErrors();
     if (Object.keys(errores).length === 0) {
       setLoading(true);
       EndPointInventario.putActualizarInventario(dataEditar).then(
         (response) => {
           if (response.status === 200) {
             console.log("esto es una prueba", response.data);
+            notify({
+              title: "Objeto Editado Correctamente",
+              position: "top-end",
+              intent: "success",
+            });
             setLoading(false);
           }
           setLoading(false);
         }
       );
-    }
+    } */
   };
 
   return {
@@ -93,5 +107,6 @@ export const useEditarInventario = (props: IListarInventario | undefined) => {
     loading,
     onChangeCombo,
     onChangeInput,
+    toasterId,
   };
 };

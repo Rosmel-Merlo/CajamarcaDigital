@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import HeaderPanel from "../../../components/panel/HeaderPanel";
 import Panel from "../../../components/panel/Panel";
-import { Button } from "@fluentui/react-components";
+import { Button, Toaster } from "@fluentui/react-components";
 import { useIconsCatalogo } from "../../../hooks/iconCatalog/useIconsCatalogo";
 import { ComboBoxComponent } from "../../../components/comboBox/ComboBoxComponent";
 import { useListarComboProducto } from "../../productos/hooks/useListarComboProducto";
@@ -28,6 +28,7 @@ export const PanelEditarInventario = (props: IPanelEditarInventario) => {
     errors,
     loading,
     onChangeInput,
+    toasterId,
   } = useEditarInventario(props.dataEditar);
 
   const renderHeader = useMemo(() => {
@@ -102,7 +103,6 @@ export const PanelEditarInventario = (props: IPanelEditarInventario) => {
             defaultValue={props.dataEditar?.seccionId}
             options={dataComboSecciones}
             error={errors?.seccionId}
-
           />
         </div>
         <div className="cards">
@@ -115,6 +115,7 @@ export const PanelEditarInventario = (props: IPanelEditarInventario) => {
           />
         </div>
       </Panel>
+      <Toaster toasterId={toasterId} />
     </>
   );
 };

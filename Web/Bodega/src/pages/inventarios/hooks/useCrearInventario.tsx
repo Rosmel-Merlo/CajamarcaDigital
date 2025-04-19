@@ -9,8 +9,11 @@ import {
   OptionOnSelectData,
   SelectionEvents,
 } from "@fluentui/react-components";
+import { useToastNotify } from "../../../hooks/notification/useToastNotify";
 
 export const useCrearInventario = () => {
+    const { notify, toasterId } = useToastNotify();
+  
   const [dataCrearInventario, setDataCrearInventario] =
     useState<ICrearInventario>(InitCrearInventario);
 
@@ -52,11 +55,13 @@ export const useCrearInventario = () => {
     EndPointInventario.postCrearInventario(dataCrearInventario).then(
       (response) => {
         if (response.status === 200) {
+          notify({title: "Objeto Creado Correctamente",intent:"success"});
           return response.data;
+
         }
       }
     );
   };
 
-  return { dataCrearInventario, PostCrearInventario, onChangeCombo, onChangeInpunt };
+  return { dataCrearInventario, PostCrearInventario, onChangeCombo, onChangeInpunt,toasterId };
 };

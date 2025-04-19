@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import HeaderPanel from "../../../components/panel/HeaderPanel";
-import { Button } from "@fluentui/react-components";
+import { Button, Toaster } from "@fluentui/react-components";
 import { useIconsCatalogo } from "../../../hooks/iconCatalog/useIconsCatalogo";
 import Panel from "../../../components/panel/Panel";
 import InputComponent from "../../../components/input/InputComponent";
@@ -16,8 +16,13 @@ interface IPanelAgregarInventario {
 export const PanelAgregarInventario = (props: IPanelAgregarInventario) => {
   const { dataComboProducto } = useListarComboProducto();
   const { dataComboSecciones } = useListarComboSecciones();
-  const { dataCrearInventario,PostCrearInventario, onChangeCombo, onChangeInpunt } =
-    useCrearInventario();
+  const {
+    dataCrearInventario,
+    PostCrearInventario,
+    onChangeCombo,
+    onChangeInpunt,
+    toasterId,
+  } = useCrearInventario();
   const { Icon } = useIconsCatalogo(24);
   const renderHeader = useMemo(() => {
     return (
@@ -103,6 +108,7 @@ export const PanelAgregarInventario = (props: IPanelAgregarInventario) => {
           </div>
         </div>
       </Panel>
+      <Toaster toasterId={toasterId} />
     </>
   );
 };

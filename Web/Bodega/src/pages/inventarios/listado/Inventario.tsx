@@ -4,7 +4,7 @@ import { useIconsCatalogo } from "../../../hooks/iconCatalog/useIconsCatalogo";
 import { IColumn } from "../../../interfaces/ITableComponent/ITableComponent";
 import { IButtonGroup } from "../../../interfaces/IButtonsGroup/IButtonGroup";
 import { useListarInventario } from "../hooks/useListarInventario";
-import { Button } from "@fluentui/react-components";
+import { Button  } from "@fluentui/react-components";
 import { PanelAgregarInventario } from "./PanelAgregarInventario";
 import { useBoolean } from "@fluentui/react-hooks";
 import { PanelEditarInventario } from "./PanelEditarInventario";
@@ -83,6 +83,7 @@ export const Inventario = () => {
         leftButtons={LeftBottom}
       />
       <PanelAgregarInventario isOpen={isOpenAdd} onDismiss={onDismissPanel} />
+
       <PanelEditarInventario
         isOpen={isOpenEditar}
         onDismiss={onDismissPanelEditar}
