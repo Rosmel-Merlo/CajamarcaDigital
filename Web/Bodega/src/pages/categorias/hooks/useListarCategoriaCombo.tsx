@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import EndPointsCategoria from "../../../api/bodega/endpoints/EndPointsCategoria";
 import { IOptionsComboBox } from "../../../components/comboBox/IComboBox";
 
-export const useListarCategoriaCombo = () => {
+export const useListarCategoriaCombo = (isGetComboCategorias: boolean) => {
   const [listarCombo, setListarCombo] = useState<IOptionsComboBox[]>([]);
 
   const getListarComboCategoria = () => {
@@ -14,7 +14,9 @@ export const useListarCategoriaCombo = () => {
     });
   };
   useEffect(() => {
-    getListarComboCategoria();
-  }, []);
+    if (isGetComboCategorias) {
+      getListarComboCategoria();
+    }
+  }, [isGetComboCategorias]);
   return { getListarComboCategoria, listarCombo };
 };

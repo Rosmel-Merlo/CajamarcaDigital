@@ -35,6 +35,7 @@ const Categorias = () => {
   return (
     <>
       <CabeceraComponent
+        nameIcon="Listar"
         subTitulo="Categorias"
         titulo="Listado de Categorias"
       />

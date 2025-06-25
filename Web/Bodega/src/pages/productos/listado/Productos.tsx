@@ -95,7 +95,7 @@ const Productos = () => {
             icon={Icon("Detalle")}
           />
           <Button
-            key={index+"1"}
+            key={index + "1"}
             appearance="transparent"
             onClick={() => {
               openPanelActualizar();
@@ -143,14 +143,22 @@ const Productos = () => {
 
   return (
     <>
-      <CabeceraComponent subTitulo="Productos" titulo="Listado de Productos" />
+      <CabeceraComponent
+        nameIcon="ListaProductos"
+        subTitulo="Productos"
+        titulo="Listado de Productos"
+      />
       <TableComponent
         column={columnas}
         data={items}
         isLoading={loadingTabel}
         leftButtons={LeftBottom}
       />
-      <PanelAgregarProducto isOpen={isOpenAdd} onDismiss={onDismissPanel} />
+      <PanelAgregarProducto
+        isOpen={isOpenAdd}
+        onDismiss={onDismissPanel}
+        updateProductos={getListarProductos}
+      />
       <PanelListarProveedorPorProducto
         nameProducto={nameProductoSelected}
         isOpen={isOpenAddProveedorProducto}

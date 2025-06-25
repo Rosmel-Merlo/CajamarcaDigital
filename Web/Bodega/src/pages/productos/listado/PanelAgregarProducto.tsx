@@ -15,6 +15,7 @@ import BarcodeScanner from "../../../components/barcodeScanner/BarcodeScanner";
 interface IPanelAgregarProducto {
   isOpen: boolean;
   onDismiss: () => void;
+  updateProductos: () => void;
 }
 
 const PanelAgregarProducto = (props: IPanelAgregarProducto) => {
@@ -30,11 +31,12 @@ const PanelAgregarProducto = (props: IPanelAgregarProducto) => {
     loading,
     onChangeCombo,
     onChangeScanner,
-  } = useAgregarProducto();
+  } = useAgregarProducto(props.onDismiss, props.updateProductos);
 
-  const { listarCombo } = useListarCategoriaCombo();
+  const { listarCombo } = useListarCategoriaCombo(props.isOpen);
   const [isOpenScanner, { setTrue: openScanner, setFalse: onDismissScanner }] =
     useBoolean(false);
+
   const renderHeader = useMemo(
     () => (
       <HeaderPanel

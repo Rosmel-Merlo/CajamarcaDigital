@@ -71,7 +71,7 @@ const Secciones = () => {
   ];
   return (
     <>
-      <CabeceraComponent subTitulo="Secciones" titulo="Listado de Secciones" />
+      <CabeceraComponent nameIcon="ListaSecciones" subTitulo="Secciones" titulo="Listado de Secciones" />
       <TableComponent
         column={columnas}
         data={items}

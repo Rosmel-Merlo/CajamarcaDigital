@@ -32,5 +32,11 @@ namespace Bodega.Api.Controller
             var response = await _mediator.Send(command);
             return Ok(response);
         }
+        [HttpPost("ActualizarProducto")]
+        public async Task<ActionResult<string>> ActualizarProducto([FromBody] CrearProductosCommand command)
+        {
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
     }
 }

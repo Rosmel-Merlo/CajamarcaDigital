@@ -82,6 +82,7 @@ const Proveedores = () => {
   return (
     <>
       <CabeceraComponent
+      nameIcon="ListaProveedores"
         subTitulo="Proveedores"
         titulo="Listado de Proveedores"
       />

@@ -194,7 +194,7 @@ export const SiderBar = (props: ISiderBar) => {
                           {group.links.map((link, index: number) => (
                             <Tooltip
                               key={index}
-                              content={`${group.name}`}
+                              content={`${link.name}`}
                               positioning={"after"}
                               relationship="inaccessible"
                             >
@@ -205,7 +205,7 @@ export const SiderBar = (props: ISiderBar) => {
                                   width: "100%",
                                   padding: "10px 7px",
                                 }}
-                                icon={Icon("Agregar")}
+                                icon={Icon(link.icon)}
                                 value={link.url}
                               ></Tab>
                             </Tooltip>

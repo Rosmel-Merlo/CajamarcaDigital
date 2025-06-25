@@ -14,7 +14,11 @@ import { crearProductoValidationRules } from "../validation/crearProductoValidat
 import { useBoolean } from "@fluentui/react-hooks";
 import { Exception, Result } from "@zxing/library";
 
-export const useAgregarProducto = () => {
+
+export const useAgregarProducto = (
+  onDismissPanel: () => void,
+  updateProductos: () => void
+) => {
   const { validateForm } = useValidateform();
   const [payload, setPayload] = useState<ICrearProducto>(InitCrearProductoDTO);
   const [errors, setErrors] = useState<ValidationErrors<ICrearProducto>>({});
@@ -74,7 +78,7 @@ export const useAgregarProducto = () => {
     setErrors(errors);
     return errors;
   };
- const onChangeScanner = (result: Result, error?: Exception) => {
+  const onChangeScanner = (result: Result, error?: Exception) => {
     if (result) {
       setPayload({ ...payload, codigo: result.getText() });
     }
@@ -86,6 +90,8 @@ export const useAgregarProducto = () => {
       EndPointsProducto.postAgregarProducto(payload).then((res) => {
         if (res.status === 200) {
           console.log("Producto Creado");
+          onDismissPanel();
+          updateProductos();
         }
         LoadingFalse();
       });
@@ -100,6 +106,6 @@ export const useAgregarProducto = () => {
     clearPayload,
     loading,
     onChangeCombo,
-    onChangeScanner
+    onChangeScanner,
   };
 };
