@@ -1,3 +1,4 @@
+using Bodega.Application.Command.Productos.Actualizar;
 using Bodega.Application.Command.Productos.Crear;
 using Bodega.Application.Queries.Productos.LIstarComboProducto;
 using Bodega.Application.Queries.Productos.ListarProductos;
@@ -33,7 +34,7 @@ namespace Bodega.Api.Controller
             return Ok(response);
         }
         [HttpPost("ActualizarProducto")]
-        public async Task<ActionResult<string>> ActualizarProducto([FromBody] CrearProductosCommand command)
+        public async Task<ActionResult<string>> ActualizarProducto([FromBody] ActualizarProductoCommand command)
         {
             var response = await _mediator.Send(command);
             return Ok(response);

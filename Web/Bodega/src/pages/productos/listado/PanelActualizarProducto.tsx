@@ -18,13 +18,14 @@ export const PanelActualizarProducto = (props: IPanelActualizarProducto) => {
   const { Icon } = useIconsCatalogo(24);
   const { onChangeActualizarProductos, payloadActualizar } =
     useActualizarProducto(props.itemActualizar);
-  const { listarCombo } = useListarCategoriaCombo();
+
+  const { listarCombo } = useListarCategoriaCombo(props.isOpen);
 
   const renderHeader = useMemo(
     () => (
       <HeaderPanel
-        titulo="Agregar Productos"
-        subTitulo="Panel para agregar productos"
+        titulo="Actualizar Productos"
+        subTitulo="Panel para actualizar productos"
       />
     ),
     []
@@ -77,6 +78,7 @@ export const PanelActualizarProducto = (props: IPanelActualizarProducto) => {
         onRenderHeader={() => renderHeader}
         onRenderFooter={() => renderFooter}
       >
+        <pre>{JSON.stringify(payloadActualizar, null, 2)}</pre>
         <div className="cards">
           <div className="card">
             <InputComponent
@@ -85,7 +87,7 @@ export const PanelActualizarProducto = (props: IPanelActualizarProducto) => {
               onChange={(e, d) =>
                 onChangeActualizarProductos(e, d, "nombreProducto")
               }
-             value={payloadActualizar?.nombre}
+              value={payloadActualizar?.nombre}
               //error={errors.nombre}
             />
           </div>
@@ -96,7 +98,7 @@ export const PanelActualizarProducto = (props: IPanelActualizarProducto) => {
               onChange={(e, d) =>
                 onChangeActualizarProductos(e, d, "descripcion")
               }
-              //value={payload.descripcion}
+              value={payloadActualizar?.descripcion}
               //error={errors.descripcion}
             />
           </div>
@@ -107,7 +109,7 @@ export const PanelActualizarProducto = (props: IPanelActualizarProducto) => {
               onChange={(e, d) =>
                 onChangeActualizarProductos(e, d, "PrecioCompra")
               }
-              //value={payload.precioCompra}
+              value={payloadActualizar?.precioCompra}
               // error={errors.precioCompra}
             />
           </div>
@@ -118,13 +120,14 @@ export const PanelActualizarProducto = (props: IPanelActualizarProducto) => {
               onChange={(e, d) =>
                 onChangeActualizarProductos(e, d, "PrecioVenta")
               }
-              //value={payload.precioVenta}
+              value={payloadActualizar?.precioVenta}
               //error={errors.precioVenta}
             />
           </div>
           <div className="card">
             <ComboBoxComponent
               //onChange={onChangeCombo}
+              defaultValue={payloadActualizar?.categoriaId}
               text="Categoria"
               options={listarCombo}
             />
@@ -136,27 +139,27 @@ export const PanelActualizarProducto = (props: IPanelActualizarProducto) => {
               onChange={(e, d) =>
                 onChangeActualizarProductos(e, d, "stockMinimo")
               }
-              //value={payload.stockMinimo}
+              value={payloadActualizar?.stockMinimo}
               //error={errors.stockMinimo}
             />
           </div>
           <div className="card">
-            {/*   <InputComponent
+            <InputComponent
               text={"Código de barras"}
-              ref={codigoInputRef}
+              //ref={codigoInputRef}
               onChange={(e, d) => onChangeActualizarProductos(e, d, "codigo")}
-              value={payload.codigo}
-              error={errors.codigo}
+              value={payloadActualizar?.codigo}
+              //error={errors.codigo}
               contentBefore={
                 <Button
                   key={"codebar"}
-                  onClick={openScanner}
+                  //onClick={openScanner}
                   appearance={"transparent"}
                   size="large"
                   icon={Icon("CodeBar")}
                 />
               }
-            /> */}
+            />
           </div>
         </div>
       </Panel>

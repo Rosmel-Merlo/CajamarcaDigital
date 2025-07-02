@@ -44,7 +44,7 @@ export const ComboBoxComponent = (props: IComboBoxProps) => {
         }
       });
     }
-  }, [props.defaultValue]);
+  }, [props.defaultValue, props.options]);
   const hasError = Boolean(props.error && props.error.trim().length > 0);
 
   return (

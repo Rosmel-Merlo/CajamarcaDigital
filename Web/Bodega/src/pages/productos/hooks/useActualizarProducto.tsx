@@ -44,11 +44,19 @@ export const useActualizarProducto = (props: IListarProducto) => {
             stockMinimo: Number(data.value),
           });
           return;
+        case "codigo":
+          setPayloadActualizar({
+            ...payloadActualizar,
+            codigo: data.value,
+          });
+          return;
         default:
           return;
       }
     }
   };
+
+  
 
   return { onChangeActualizarProductos, payloadActualizar };
 };
