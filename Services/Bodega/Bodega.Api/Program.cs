@@ -1,3 +1,4 @@
+using Bodega.Api.Middlewares;
 using Bodega.Application;
 using Bodega.Infraestructure;
 
@@ -47,6 +48,7 @@ builder.Services.AddCors(options =>
 // Agrega soporte para controladores
 
 var app = builder.Build();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

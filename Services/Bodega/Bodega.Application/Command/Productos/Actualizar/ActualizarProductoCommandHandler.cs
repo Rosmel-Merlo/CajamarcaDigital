@@ -14,28 +14,21 @@ namespace Bodega.Application.Command.Productos.Actualizar
         }
         public async Task<string> Handle(ActualizarProductoCommand request, CancellationToken cancellationToken)
         {
-            try
-            {
-                Producto producto = await _productoRepository.GetSingleAsync(x => x.ProductoId == request.ProductoId) ?? throw new Exception("Producto no encontrado");
 
-                producto.Nombre = request.Nombre ?? producto.Nombre;
-                producto.Descripcion = request.Descripcion ?? producto.Descripcion;
-                producto.PrecioCompra = request.PrecioCompra ?? producto.PrecioCompra;
-                producto.PrecioVenta = request.PrecioVenta ?? producto.PrecioVenta;
-                producto.CategoriaId = request.CategoriaId ?? producto.CategoriaId;
-                producto.StockMinimo = request.StockMinimo ?? producto.StockMinimo;
-                producto.Codigo = request.Codigo ?? producto.Codigo;
+            throw new NotImplementedException("El metodo Handle no está implementado");
+            Producto producto = await _productoRepository.GetSingleAsync(x => x.ProductoId == request.ProductoId) ?? throw new Exception("Producto no encontrado");
 
-                await _productoRepository.UpdateAsync(producto);
+            producto.Nombre = request.Nombre ?? producto.Nombre;
+            producto.Descripcion = request.Descripcion ?? producto.Descripcion;
+            producto.PrecioCompra = request.PrecioCompra ?? producto.PrecioCompra;
+            producto.PrecioVenta = request.PrecioVenta ?? producto.PrecioVenta;
+            producto.CategoriaId = request.CategoriaId ?? producto.CategoriaId;
+            producto.StockMinimo = request.StockMinimo ?? producto.StockMinimo;
+            producto.Codigo = request.Codigo ?? producto.Codigo;
 
-                return "se edito";
-            }
-            catch (System.Exception ex)
-            {
-                throw new Exception("Error al actualizar el producto", ex);
+            await _productoRepository.UpdateAsync(producto);
 
-            }
-
+            return "se edito";
         }
     }
 }

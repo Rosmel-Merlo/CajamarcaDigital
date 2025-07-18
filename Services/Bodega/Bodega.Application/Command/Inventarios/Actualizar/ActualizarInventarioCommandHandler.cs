@@ -14,23 +14,16 @@ namespace Bodega.Application.Command.Inventarios.Actualizar
         }
         public async Task<string> Handle(ActualizarInventarioCommand request, CancellationToken cancellationToken)
         {
-            try
+            Expression<Func<Inventario, bool>> filter = x => x.ProductoId == request.ProductoId && x.SeccionId == request.SeccionId;
+            Inventario? inventario = await _inventarioRepository.GetSingleAsync(filter);
+            if (inventario == null)
             {
-                Expression<Func<Inventario, bool>> filter = x => x.ProductoId == request.ProductoId && x.SeccionId == request.SeccionId;
-                Inventario? inventario = await _inventarioRepository.GetSingleAsync(filter);
-                if (inventario == null)
-                {
-                    throw new System.Exception("Inventario no encontrado");
-                }
-                inventario.Cantidad = request.Cantidad;
-                await _inventarioRepository.UpdateAsync(inventario);
+                throw new System.Exception("Inventario no encontrado");
+            }
+            inventario.Cantidad = request.Cantidad;
+            await _inventarioRepository.UpdateAsync(inventario);
 
-                return "Inventario actualizado";
-            }
-            catch (System.Exception ex)
-            {
-                throw new System.Exception(ex.Message);
-            }
+            return "Inventario actualizado";
         }
     }
 }
