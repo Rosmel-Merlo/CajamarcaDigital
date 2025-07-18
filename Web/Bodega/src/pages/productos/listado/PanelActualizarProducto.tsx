@@ -8,24 +8,35 @@ import { ComboBoxComponent } from "../../../components/comboBox/ComboBoxComponen
 import { useActualizarProducto } from "../hooks/useActualizarProducto";
 import { useListarCategoriaCombo } from "../../categorias/hooks/useListarCategoriaCombo";
 import { IListarProducto } from "../../../api/bodega/interfaces/Productos/IListarProducto";
+import { ProgressBarComponent } from "../../../components/progressBar/ProgressBarComponent";
 interface IPanelActualizarProducto {
   isOpen: boolean;
   onDismiss: () => void;
+  updateListProductos: () => void;
   itemActualizar: IListarProducto;
 }
 
 export const PanelActualizarProducto = (props: IPanelActualizarProducto) => {
   const { Icon } = useIconsCatalogo(24);
-  const { onChangeActualizarProductos, payloadActualizar } =
-    useActualizarProducto(props.itemActualizar);
+  const {
+    onChangeActualizarProductos,
+    payloadActualizar,
+    PostActualizarProducto,
+    errors,
+    loadingActulizarProducto,
+  } = useActualizarProducto(
+    props.onDismiss,
+    props.updateListProductos,
+    props.itemActualizar
+  );
 
   const { listarCombo } = useListarCategoriaCombo(props.isOpen);
 
   const renderHeader = useMemo(
     () => (
       <HeaderPanel
-        titulo="Actualizar Productos"
-        subTitulo="Panel para actualizar productos"
+        titulo="Editar Productos"
+        subTitulo="Panel para editar productos"
       />
     ),
     []
@@ -57,17 +68,17 @@ export const PanelActualizarProducto = (props: IPanelActualizarProducto) => {
         <div>
           <Button
             key={"right2"}
-            //onClick={postAgregarProductos}
+            onClick={PostActualizarProducto}
             style={{ fontSize: "12px", fontWeight: "normal" }}
             appearance={"primary"}
-            icon={Icon("Agregar")}
+            icon={Icon("Editar")}
           >
-            Agregar
+            Actualizar
           </Button>
         </div>
       </div>
     ),
-    [props.onDismiss]
+    [props.onDismiss, PostActualizarProducto]
   );
   return (
     <>
@@ -78,90 +89,93 @@ export const PanelActualizarProducto = (props: IPanelActualizarProducto) => {
         onRenderHeader={() => renderHeader}
         onRenderFooter={() => renderFooter}
       >
-        <pre>{JSON.stringify(payloadActualizar, null, 2)}</pre>
-        <div className="cards">
-          <div className="card">
-            <InputComponent
-              key={"1"}
-              text={"Nombre Producto"}
-              onChange={(e, d) =>
-                onChangeActualizarProductos(e, d, "nombreProducto")
-              }
-              value={payloadActualizar?.nombre}
-              //error={errors.nombre}
-            />
+        {loadingActulizarProducto ? (
+          <ProgressBarComponent text={"Se está actualizando"} />
+        ) : (
+          <div className="cards">
+            <div className="card">
+              <InputComponent
+                key={"1"}
+                text={"Nombre Producto"}
+                onChange={(e, d) =>
+                  onChangeActualizarProductos(e, d, "nombreProducto")
+                }
+                value={payloadActualizar?.nombre}
+                error={errors.nombre}
+              />
+            </div>
+            <div className="card">
+              <InputComponent
+                key={"descripcion"}
+                text={"Descripción"}
+                onChange={(e, d) =>
+                  onChangeActualizarProductos(e, d, "descripcion")
+                }
+                value={payloadActualizar?.descripcion}
+                //error={errors.descripcion}
+              />
+            </div>
+            <div className="card">
+              <InputComponent
+                type="number"
+                text={"Precio Compra"}
+                onChange={(e, d) =>
+                  onChangeActualizarProductos(e, d, "PrecioCompra")
+                }
+                value={payloadActualizar?.precioCompra}
+                error={errors.precioCompra}
+              />
+            </div>
+            <div className="card">
+              <InputComponent
+                text={"Precio Venta"}
+                type="number"
+                onChange={(e, d) =>
+                  onChangeActualizarProductos(e, d, "PrecioVenta")
+                }
+                value={payloadActualizar?.precioVenta}
+                error={errors.precioVenta}
+              />
+            </div>
+            <div className="card">
+              <ComboBoxComponent
+                //onChange={onChangeCombo}
+                defaultValue={payloadActualizar?.categoriaId}
+                text="Categoria"
+                options={listarCombo}
+              />
+            </div>
+            <div className="card">
+              <InputComponent
+                type="number"
+                text={"Stock Mínimo"}
+                onChange={(e, d) =>
+                  onChangeActualizarProductos(e, d, "stockMinimo")
+                }
+                value={payloadActualizar?.stockMinimo}
+                error={errors.stockMinimo}
+              />
+            </div>
+            <div className="card">
+              <InputComponent
+                text={"Código de barras"}
+                //ref={codigoInputRef}
+                onChange={(e, d) => onChangeActualizarProductos(e, d, "codigo")}
+                value={payloadActualizar?.codigo}
+                error={errors.codigo}
+                contentBefore={
+                  <Button
+                    key={"codebar"}
+                    //onClick={openScanner}
+                    appearance={"transparent"}
+                    size="large"
+                    icon={Icon("CodeBar")}
+                  />
+                }
+              />
+            </div>
           </div>
-          <div className="card">
-            <InputComponent
-              key={"descripcion"}
-              text={"Descripción"}
-              onChange={(e, d) =>
-                onChangeActualizarProductos(e, d, "descripcion")
-              }
-              value={payloadActualizar?.descripcion}
-              //error={errors.descripcion}
-            />
-          </div>
-          <div className="card">
-            <InputComponent
-              type="number"
-              text={"Precio Compra"}
-              onChange={(e, d) =>
-                onChangeActualizarProductos(e, d, "PrecioCompra")
-              }
-              value={payloadActualizar?.precioCompra}
-              // error={errors.precioCompra}
-            />
-          </div>
-          <div className="card">
-            <InputComponent
-              text={"Precio Venta"}
-              type="number"
-              onChange={(e, d) =>
-                onChangeActualizarProductos(e, d, "PrecioVenta")
-              }
-              value={payloadActualizar?.precioVenta}
-              //error={errors.precioVenta}
-            />
-          </div>
-          <div className="card">
-            <ComboBoxComponent
-              //onChange={onChangeCombo}
-              defaultValue={payloadActualizar?.categoriaId}
-              text="Categoria"
-              options={listarCombo}
-            />
-          </div>
-          <div className="card">
-            <InputComponent
-              type="number"
-              text={"Stock Mínimo"}
-              onChange={(e, d) =>
-                onChangeActualizarProductos(e, d, "stockMinimo")
-              }
-              value={payloadActualizar?.stockMinimo}
-              //error={errors.stockMinimo}
-            />
-          </div>
-          <div className="card">
-            <InputComponent
-              text={"Código de barras"}
-              //ref={codigoInputRef}
-              onChange={(e, d) => onChangeActualizarProductos(e, d, "codigo")}
-              value={payloadActualizar?.codigo}
-              //error={errors.codigo}
-              contentBefore={
-                <Button
-                  key={"codebar"}
-                  //onClick={openScanner}
-                  appearance={"transparent"}
-                  size="large"
-                  icon={Icon("CodeBar")}
-                />
-              }
-            />
-          </div>
-        </div>
+        )}
       </Panel>
     </>
   );

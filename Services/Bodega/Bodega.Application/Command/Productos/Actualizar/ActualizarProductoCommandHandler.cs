@@ -15,7 +15,6 @@ namespace Bodega.Application.Command.Productos.Actualizar
         public async Task<string> Handle(ActualizarProductoCommand request, CancellationToken cancellationToken)
         {
 
-            throw new NotImplementedException("El metodo Handle no está implementado");
             Producto producto = await _productoRepository.GetSingleAsync(x => x.ProductoId == request.ProductoId) ?? throw new Exception("Producto no encontrado");
 
             producto.Nombre = request.Nombre ?? producto.Nombre;

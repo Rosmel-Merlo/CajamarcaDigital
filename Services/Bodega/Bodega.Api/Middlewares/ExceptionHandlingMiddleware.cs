@@ -1,6 +1,7 @@
 
 using System.Net;
 using System.Text.Json;
+using Bodega.Api.Models;
 
 namespace Bodega.Api.Middlewares
 {
@@ -34,20 +35,22 @@ namespace Bodega.Api.Middlewares
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     context.Response.ContentType = "application/json";
 
-                    return context.Response.WriteAsync(JsonSerializer.Serialize(new
+                    return context.Response.WriteAsync(JsonSerializer.Serialize(new ErrorResponseModel()
                     {
-                        error = validationException.Errors.Select(e => e.ErrorMessage),
-                        CodigoDetalle = "FluentValidation-001"
+                        Mensaje = validationException.Errors.Select(e => e.ErrorMessage),
+                        TipoError = "Validacion",
+                        StatusCode = context.Response.StatusCode
                     }));
                 case NotImplementedException notImplementedException:
                     context.Response.StatusCode = (int)HttpStatusCode.NotImplemented;
                     context.Response.ContentType = "application/json";
-                    return context.Response.WriteAsync(JsonSerializer.Serialize(new
+                    return context.Response.WriteAsync(JsonSerializer.Serialize(new ErrorResponseModel()
                     {
-                        error = notImplementedException.Message,
-                        CodigoDetalle = "T1_003"
+                        Mensaje = notImplementedException.Message != null ? new[] { notImplementedException.Message } : new[] { "Not Implemented" },
+                        TipoError = "No Implementado",
+                        StatusCode = context.Response.StatusCode
                     }));
-
+                
                 default:
                     context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     context.Response.ContentType = "application/json";

@@ -166,6 +166,7 @@ const Productos = () => {
         productoId={productoId}
       />
       <PanelActualizarProducto
+        updateListProductos={getListarProductos}
         itemActualizar={itemActualizar}
         isOpen={isOpenActualizar}
         onDismiss={onDismissPanelActualizar}
